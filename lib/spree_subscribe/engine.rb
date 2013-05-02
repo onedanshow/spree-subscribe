@@ -11,6 +11,10 @@ module SpreeSubscribe
       g.test_framework :rspec
     end
 
+    rake_tasks do
+      Dir[File.join(File.dirname(__FILE__),'../tasks/*.rake')].each { |f| load f }
+    end
+
     def self.activate
       Dir.glob(File.join(File.dirname(__FILE__), '../../app/**/*_decorator*.rb')) do |c|
         Rails.configuration.cache_classes ? require(c) : load(c)
