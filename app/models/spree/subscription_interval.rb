@@ -1,11 +1,5 @@
 class Spree::SubscriptionInterval < ActiveRecord::Base
-  attr_accessible :times, :time_unit, :product_id, :name
-
-  belongs_to :product, :class_name => "Spree::Product"
-  has_many :subscriptions, :class_name => "Spree::Subscription"
-
-  validates :times, :time_unit, :product_id, :presence => true
-  validates_inclusion_of :time_unit, :in => UNITS.keys
+  attr_accessible :times, :time_unit, :name
 
   UNITS = {
     1 => :day,
@@ -13,6 +7,16 @@ class Spree::SubscriptionInterval < ActiveRecord::Base
     3 => :month,
     4 => :year
   }
+
+  has_and_belongs_to_many :products, :class_name => "Spree::Product", :join_table => 'spree_subscription_intervals_products'
+  has_many :subscriptions, :class_name => "Spree::Subscription"
+
+  validates :times, :time_unit, :presence => true
+  validates_inclusion_of :time_unit, :in => UNITS.keys
+
+  def time_unit_name
+    UNITS[self.time_unit]
+  end
 
   # DD: TODO prevent deletion if used by a product or subscription?
 end

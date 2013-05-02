@@ -2,4 +2,9 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  subscriptions_config_label: "Subscriptions"
+  subscription_intervals: "Subscription Intervals"
+  new_subscription_interval: "New Subscription Interval"
+  subscription_interval_name: "Deliver Every (Name)"
+  subscription_interval_times: "Reoccurs"
+  subscription_interval_time_unit: "Time Unit"

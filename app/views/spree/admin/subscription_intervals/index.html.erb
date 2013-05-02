@@ -1,0 +1,40 @@
+<%= render :partial => 'spree/admin/shared/configuration_menu' %>
+
+<% content_for :page_title do %>
+  <%= t(:subscription_intervals) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to t(:new_subscription_interval), new_object_url,  :icon => 'icon-plus', :id => 'admin_new_subscription_interval_link' %>
+  </li>
+<% end %>
+
+<table class="index" id='listing_subscription_intervals'>
+  <colgroup>
+    <col style="width: 120px">
+    <col style="width: 80px">
+    <col style="width: 80px">
+    <col style="width: 220px">
+    <col style="width: 15%">
+  </colgroup>
+  <thead>
+    <th><%= t(:subscription_interval_name) %></th>
+    <th><%= t(:subscription_interval_times) %></th>
+    <th><%= t(:subscription_interval_time_unit) %></th>
+    <th data-hook="admin_stores_index_header_actions" class="actions"></th>
+  </thead>
+  <tbody>
+    <% @subscription_intervals.each do |interval| %>
+      <tr id="<%= spree_dom_id interval %>" data-hook="admin_subscription_intervals_index_rows" class="<%= cycle('odd', 'even') %>">
+        <td><%= interval.name %></td>
+        <td><%= interval.times %></td>
+        <td><%= interval.time_unit_name.to_s.titleize %></td>
+        <td data-hook="admin_subscription_intervals_index_row_actions" class="actions">
+          <%= link_to_edit interval, :no_text => true %> &nbsp;
+          <%= link_to_delete interval, :no_text => true %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
