@@ -11,7 +11,7 @@ namespace :spree_subscribe do
   namespace :db do
     desc "Seed database with basic subscription data"
     task :seed => :environment do
-      #SpreeSubscribe::Engine.load_seed
+      SpreeSubscribe::Engine.load_seed
     end
   end
 end
