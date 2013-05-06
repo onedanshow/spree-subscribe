@@ -1,5 +1,5 @@
 class Spree::SubscriptionInterval < ActiveRecord::Base
-  attr_accessible :times, :time_unit, :name
+  attr_accessible :times, :time_unit, :name, :reorder_on
 
   UNITS = {
     1 => :day,
@@ -16,6 +16,10 @@ class Spree::SubscriptionInterval < ActiveRecord::Base
 
   def time_unit_name
     UNITS[self.time_unit]
+  end
+
+  def time
+    self.times.try( time_unit_name.to_sym )
   end
 
   # DD: TODO prevent deletion if used by a product or subscription?

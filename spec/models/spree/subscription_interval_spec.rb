@@ -1,5 +1,8 @@
 require 'spec_helper'
 
 describe Spree::SubscriptionInterval do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "has a 3 month time period" do
+    interval = Factory(:subscription_interval)
+    interval.time.should eq(3.months)
+  end
 end

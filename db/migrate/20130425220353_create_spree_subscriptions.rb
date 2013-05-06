@@ -5,7 +5,7 @@ class CreateSpreeSubscriptions < ActiveRecord::Migration
       t.references :line_item
       t.string :email # DD: needed because tied to line item?
       t.string :state
-      t.date :reships_on
+      t.date :reorder_on
       t.timestamps
     end
   end
