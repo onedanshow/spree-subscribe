@@ -1,11 +1,10 @@
 namespace :spree_subscribe do
-  namespace :reorders do
 
+  namespace :reorders do
     desc "Find all subscriptions that are due today and reorder their products"
     task :create => :environment do
-      puts Spree::Subscription.where(:reships_on => Date.today).count
+      Spree::Subscription.where(:reorder_on => Date.today).each{|s| s.reorder }
     end
-
   end
 
   namespace :db do

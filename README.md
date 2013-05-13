@@ -6,26 +6,28 @@ SpreeSubscribe
 A Spree extension for allowing customer to subscribe to a product(s), have it periodically sent to him/her, and manage that subscription.
 
 
+Installation
+-------
+
+Add this to your Gemfile
+
+    gem "spree_subscribe", github: "onedanshow/spree_subscribe"
+
+Setup a cron job to run this rake task every night
+
+    rake spree_subscribe:reorders:create
+
+
 Developer ToDo
 -------
 
-* Create Spree::Subscription model, with belongs_to product, belongs_to user, has_many orders, started_at, belongs_to interval
-* Create Spree::SubscriptionInterval model, allowing admin to define time periods for subscription (i.e. one month, two months)
-* Decorate Spree::Product to be subscribable (variant?), has_many subscriptions (variant?), has_many intervals, subscription_price
-* Decorate Spree::Variant to be subscribable, has_many subscriptions
+* Figure out how to create reorders
 * Decorate Spree::User with has_many subscriptions
-* Decorate Spree::Order to belong_to subscription, maybe clone method?
-* Create cron job for creating orders each night
-* Decorate "My Account" views to show index of subscriptions
+* Deface "My Account" views to show index of subscriptions
 * Create Spree::SubscriptionsController and views for edit, update, and destroy actions
-* Deface "Add to cart" button with "Subscribe" and time period dropdown
+* Create Spree::Admin::SubscriptionsController and views for edit, update, and destroy actions
 * Deface admin product and variant forms with additional fields
-* Create admin subscription view
-
-Example
--------
-
-Example goes here.
+* Add subscription price to variants so that customes save money
 
 Testing
 -------
