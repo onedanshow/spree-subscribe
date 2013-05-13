@@ -31,11 +31,13 @@ class Spree::Subscription < ActiveRecord::Base
   def reorder
     raise false unless self.state == 'active'
 
+
+
     # DD: create near-complete order
     order = Spree::Order.create(
         :email => self.line_item.order.email,  # DD: TODO get from here?
-        :bill_address => self.billing_address,
-        :ship_address => self.shipping_address,
+        :bill_address => self.billing_address.clone,
+        :ship_address => self.shipping_address.clone,
         :subscription_id => self.id
       )
 
@@ -61,23 +63,21 @@ class Spree::Subscription < ActiveRecord::Base
     raise "2) Stuck in #{order.state} because #{order.errors.full_messages} or #{line_item.errors.full_messages}" unless order.next # -> delivery
 
     # DD: add payment
-    payment = Spree::Payment.new( :amount => order.item_total )
+    payment = order.payments.build( :amount => order.item_total )
     payment.source = self.source
     payment.payment_method = self.payment_method
-    order.payments << payment
+    payment.save!
 
-    #raise "Not confirmation ready (payments: #{order.payments.count}) #{payment.attributes} - #{order.attributes}" unless order.confirmation_required?
+    raise "Not confirmation ready (payments: #{order.payments.count}) #{payment.attributes} - #{order.attributes}" unless order.confirmation_required?
 
     # DD: TODO: change to error method
     raise "3) Stuck in #{order.state} because #{order.errors.full_messages} or #{payment.errors.full_messages}" unless order.next # -> payment
 
+    order.next
+    order.next
 
 
-    order.save!
-
-    self.calculate_reorder_date!
-
-    true
+    order.save! && self.calculate_reorder_date!  # DD: TODO: put in transaction?
   end
 
   def calculate_reorder_date!

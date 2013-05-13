@@ -59,6 +59,8 @@ describe Spree::Subscription do
     before(:each) do
       @sub = Factory(:subscription_for_reorder)
       @sub.activate
+      # DD: calling activate will set date into future
+      @sub.update_attribute(:reorder_on,Date.today)
     end
 
     it "should have reorder reset" do
@@ -75,31 +77,34 @@ describe Spree::Subscription do
     it "should have a valid order with a billing address" do
       @sub.reorder.should be_true
       order = @sub.reorders.first
-      order.bill_address.should be(@sub.billing_address)
+      order.bill_address.should == @sub.billing_address  # DD: uses == operator override in Spree::Address
+      order.bill_address.id.should_not eq @sub.billing_address.id # DD: not the same database record
     end
 
     it "should have a valid order with a shipping address" do
       @sub.reorder.should be_true
       order = @sub.reorders.first
-      order.ship_address.should be(@sub.shipping_address)
+      order.ship_address.should == @sub.shipping_address  # DD: uses == operator override in Spree::Address
+      order.ship_address.id.should_not eq @sub.shipping_address.id # DD: not the same database record
     end
 
     it "should have a valid order with a shipping method" do
       @sub.reorder.should be_true
       order = @sub.reorders.first
-      order.shipping_method.should be(@sub.shipping_method)
+      expect(order.shipping_method).to eq @sub.shipping_method  # DD: should be same database record
     end
 
     it "should have a valid order with a payment method" do
       @sub.reorder.should be_true
       order = @sub.reorders.first
-      order.payment_method.should be(@sub.payment_method)
+      expect(order.payment_method).to eq @sub.payment_method  # DD: should be same database record
     end
 
     it "should have a valid order with a payment source" do
       @sub.reorder.should be_true
       order = @sub.reorders.first
-      order.source.should be(@sub.source)
+      order.payments.count.should be(1)
+      expect(order.payments.first.source).to eq @sub.source  # DD: should be same database record
     end
 
     it "should have a payment" do
