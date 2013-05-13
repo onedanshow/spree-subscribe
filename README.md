@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/onedanshow/spree-subscribe.png)](https://travis-ci.org/onedanshow/spree-subscribe)
+
 **This extension is not production ready.**
 
 SpreeSubscribe

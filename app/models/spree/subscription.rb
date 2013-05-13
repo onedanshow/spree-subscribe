@@ -2,6 +2,8 @@ class Spree::Subscription < ActiveRecord::Base
   attr_accessible :reorder_on, :email, :interval_id, :line_item_id, :billing_address_id,
     :shipping_address_id, :shipping_method_id, :payment_method_id, :source_id, :source_type
 
+  attr_accessor :new_order
+
   belongs_to :line_item, :class_name => "Spree::LineItem"
   belongs_to :billing_address, :foreign_key => :billing_address_id, :class_name => "Spree::Address"
   belongs_to :shipping_address, :foreign_key => :shipping_address_id, :class_name => "Spree::Address"
@@ -31,10 +33,17 @@ class Spree::Subscription < ActiveRecord::Base
   def reorder
     raise false unless self.state == 'active'
 
+    create_reorder &&
+    add_subscribed_line_item &&
+    add_payment &&
+    confirm_reorder &&
+    complete_reorder &&
+    calculate_reorder_date!
+  end
 
-
-    # DD: create near-complete order
-    order = Spree::Order.create(
+  def create_reorder
+    # DD: create order
+    self.new_order = Spree::Order.create(
         :email => self.line_item.order.email,  # DD: TODO get from here?
         :bill_address => self.billing_address.clone,
         :ship_address => self.shipping_address.clone,
@@ -42,49 +51,52 @@ class Spree::Subscription < ActiveRecord::Base
       )
 
     # DD: make it work with spree_multi_domain
-    if order.respond_to?(:store_id)
-      order.store_id = self.line_item.order.store_id
-      order.save!
+    if self.new_order.respond_to?(:store_id)
+      self.new_order.store_id = self.line_item.order.store_id
     end
 
-    # DD: TODO: change to error method
-    raise "1) Stuck in #{order.state} because #{order.errors.full_messages}" unless order.next # -> address
+    self.new_order.next # -> address
+  end
 
+  def add_subscribed_line_item
     # DD: add line items and shipping
     variant = Spree::Variant.find(self.line_item.variant_id)
 
-    line_item = order.add_variant( variant, self.line_item.quantity )
+    line_item = self.new_order.add_variant( variant, self.line_item.quantity )
     line_item.price = self.line_item.price
     line_item.save!
 
-    order.shipping_method_id = self.shipping_method_id
+    self.new_order.shipping_method_id = self.shipping_method_id
 
-    # DD: TODO: change to error method
-    raise "2) Stuck in #{order.state} because #{order.errors.full_messages} or #{line_item.errors.full_messages}" unless order.next # -> delivery
+    self.new_order.next # -> delivery
+  end
 
+  def add_payment
     # DD: add payment
-    payment = order.payments.build( :amount => order.item_total )
+    payment = self.new_order.payments.build( :amount => self.new_order.item_total )
     payment.source = self.source
     payment.payment_method = self.payment_method
     payment.save!
 
-    raise "Not confirmation ready (payments: #{order.payments.count}) #{payment.attributes} - #{order.attributes}" unless order.confirmation_required?
-
     # DD: TODO: change to error method
-    raise "3) Stuck in #{order.state} because #{order.errors.full_messages} or #{payment.errors.full_messages}" unless order.next # -> payment
+    self.new_order.next # -> payment
+  end
 
-    order.next
-    order.next
+  def confirm_reorder
+    self.new_order.next # -> confirm
+  end
 
-
-    order.save! && self.calculate_reorder_date!  # DD: TODO: put in transaction?
+  def complete_reorder
+    self.new_order.update!
+    self.new_order.next && self.new_order.save # -> complete
   end
 
   def calculate_reorder_date!
     self.reorder_on ||= Date.today
     self.reorder_on += self.interval.time
-    save!
+    save
   end
+
 
   private
 
