@@ -22,7 +22,13 @@
           </td>
           <td class="subscription-price"><%= money sub.line_item.price %></td>
           <td class="subscription-interval"><%= sub.interval.name %></td>
-          <td class="subscription-reorder-date"><%= l sub.reorder_on.to_date %></td>
+          <td class="subscription-reorder-date">
+            <% if sub.active? %>
+              <%= l sub.reorder_on.to_date %>
+            <% else %>
+              -
+            <% end %>
+          </td>
           <td class="subscription-status"><%= sub.state.titleize %></td>
           <td class="subscription-actions">
             <% if sub.active? %>

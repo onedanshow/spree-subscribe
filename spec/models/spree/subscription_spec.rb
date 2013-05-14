@@ -18,45 +18,45 @@ describe Spree::Subscription do
     end
 
     it "should have reorder date that is three months (i.e. subscription interval) from today on activation" do
-      @sub.activate
+      @sub.start
       @sub.reorder_on.should eq(Date.today + 3.month)
     end
 
     it "should have a billing address on activation" do
       @sub.line_item.order.billing_address.should be
       @sub.billing_address.should be_nil
-      @sub.activate
+      @sub.start
       @sub.billing_address.should be
     end
 
     it "should have a shipping address on activation" do
       @sub.line_item.order.shipping_address.should be
       @sub.shipping_address.should be_nil
-      @sub.activate
+      @sub.start
       @sub.shipping_address.should be
     end
 
     it "should have a ship method on activation" do
       @sub.shipping_method.should be_nil
-      @sub.activate
+      @sub.start
       @sub.shipping_method.should be
     end
 
     it "should have a payment method on activation" do
       @sub.payment_method.should be_nil
-      @sub.activate
+      @sub.start
       @sub.payment_method.should be
     end
 
     it "should have a payment source on activation" do
       @sub.source.should be_nil
-      @sub.activate
+      @sub.start
       @sub.source.should be
     end
 
     it "should have a user on activation" do
       @sub.user.should be_nil
-      @sub.activate
+      @sub.start
       @sub.user.should be
     end
   end
@@ -64,8 +64,8 @@ describe Spree::Subscription do
   context "that is ready for reorder" do
     before(:each) do
       @sub = Factory(:subscription_for_reorder)
-      @sub.activate
-      # DD: calling activate will set date into future
+      @sub.start
+      # DD: calling start will set date into future
       @sub.update_attribute(:reorder_on,Date.today)
     end
 

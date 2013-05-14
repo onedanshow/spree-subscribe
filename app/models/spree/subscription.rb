@@ -21,7 +21,7 @@ class Spree::Subscription < ActiveRecord::Base
     event :suspend do
       transition :to => 'inactive', :from => 'active'
     end
-    event :resume do
+    event :start, :resume do
       transition :to => 'active', :from => ['cart','inactive']
     end
     event :cancel do
@@ -30,6 +30,7 @@ class Spree::Subscription < ActiveRecord::Base
 
     after_transition :to => 'active', :do => :calculate_reorder_date!
     after_transition :to => 'active', :do => :set_checkout_requirements
+    after_transition :on => :resume, :do => :check_reorder_date
   end
 
   def reorder
@@ -95,19 +96,27 @@ class Spree::Subscription < ActiveRecord::Base
     save
   end
 
-
   private
 
+  # DD: if resuming an old subscription
+  def check_reorder_date
+    if reorder_on <= Date.today
+      reorder_on = Date.tomorrow
+      save
+    end
+  end
+
   def set_checkout_requirements
-    self.billing_address_id = self.line_item.order.bill_address_id
-    self.shipping_address_id = self.line_item.order.ship_address_id
-    self.shipping_method_id = self.line_item.order.shipping_method_id
-    self.payment_method_id = self.line_item.order.payments.first.payment_method_id
-    self.source_id = self.line_item.order.payments.first.source_id
-    self.source_type = self.line_item.order.payments.first.source_type
-    self.user_id = self.line_item.order.user_id
     # DD: TODO: set quantity?
-    save!
+    update_attributes(
+      :billing_address_id => self.line_item.order.bill_address_id,
+      :shipping_address_id => self.line_item.order.ship_address_id,
+      :shipping_method_id => self.line_item.order.shipping_method_id,
+      :payment_method_id => self.line_item.order.payments.first.payment_method_id,
+      :source_id => self.line_item.order.payments.first.source_id,
+      :source_type => self.line_item.order.payments.first.source_type,
+      :user_id => self.line_item.order.user_id
+    )
   end
 
 end
