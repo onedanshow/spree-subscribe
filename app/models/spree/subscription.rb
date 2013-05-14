@@ -18,11 +18,11 @@ class Spree::Subscription < ActiveRecord::Base
   scope :active, where(:state => 'active')
 
   state_machine :state, :initial => 'cart' do
-    event :activate do
-      transition :to => 'active', :from => ['cart','inactive']
-    end
-    event :deactivate do
+    event :suspend do
       transition :to => 'inactive', :from => 'active'
+    end
+    event :resume do
+      transition :to => 'active', :from => ['cart','inactive']
     end
     event :cancel do
       transition :to => 'cancel', :from => 'active'

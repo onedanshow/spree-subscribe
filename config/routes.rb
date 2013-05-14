@@ -4,8 +4,6 @@ Spree::Core::Engine.routes.draw do
     resources :subscriptions, :except => [:new,:create]
   end
 
-  namespace :spree do
-    resources :subscriptions, :only => [:edit,:update,:destroy]
-  end
+  resources :subscriptions, :only => [:destroy]
 
 end

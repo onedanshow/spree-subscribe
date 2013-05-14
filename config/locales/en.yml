@@ -13,7 +13,6 @@ en:
     suspend_subscription: "Suspend"
     are_you_sure_suspend: "Are you sure that you want to suspend this subscription?"
     resume_subscription: "Resume"
-    are_you_sure_resume: "Are you sure that you want to resume this subscription?"
 
   subscriptions_config_label: "Subscriptions"
   subscription_intervals: "Subscription Intervals"

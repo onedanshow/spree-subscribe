@@ -1,6 +1,6 @@
-//= require store/spree_core
+#= require store/spree_core
 
-/*
+###
 (function($) {
   $(document).ready(function(){
     if ($("#product-variants").length) {
@@ -55,4 +55,4 @@
   }
 
 })(jQuery);
-*/
+###
