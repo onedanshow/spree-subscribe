@@ -15,6 +15,7 @@ class Spree::Subscription < ActiveRecord::Base
 
   has_many :reorders, :class_name => "Spree::Order"
 
+  scope :active, where(:state => 'active')
 
   state_machine :state, :initial => 'cart' do
     event :activate do
@@ -43,13 +44,14 @@ class Spree::Subscription < ActiveRecord::Base
   end
 
   def create_reorder
-    # DD: create order
     self.new_order = Spree::Order.create(
-        :user_id => self.line_item.order.email,  # DD: TODO get from here?
         :bill_address => self.billing_address.clone,
         :ship_address => self.shipping_address.clone,
-        :subscription_id => self.id
+        :subscription_id => self.id,
+        :email => self.user.email
       )
+    self.new_order.user_id = self.user_id
+    self.new_order.shipping_method_id = self.shipping_method_id
 
     # DD: make it work with spree_multi_domain
     if self.new_order.respond_to?(:store_id)
@@ -60,26 +62,21 @@ class Spree::Subscription < ActiveRecord::Base
   end
 
   def add_subscribed_line_item
-    # DD: add line items and shipping
     variant = Spree::Variant.find(self.line_item.variant_id)
 
     line_item = self.new_order.add_variant( variant, self.line_item.quantity )
     line_item.price = self.line_item.price
     line_item.save!
 
-    self.new_order.shipping_method_id = self.shipping_method_id
-
     self.new_order.next # -> delivery
   end
 
   def add_payment
-    # DD: add payment
     payment = self.new_order.payments.build( :amount => self.new_order.item_total )
     payment.source = self.source
     payment.payment_method = self.payment_method
     payment.save!
 
-    # DD: TODO: change to error method
     self.new_order.next # -> payment
   end
 

@@ -23,9 +23,7 @@ Setup a cron job to run this rake task every night
 Developer ToDo
 -------
 
-* Figure out how to create reorders
-* Decorate Spree::User with has_many subscriptions
-* Deface "My Account" views to show index of subscriptions
+* Allow subscriptions to be suspended / resumed
 * Create Spree::SubscriptionsController and views for edit, update, and destroy actions
 * Create Spree::Admin::SubscriptionsController and views for edit, update, and destroy actions
 * Deface admin product and variant forms with additional fields

@@ -69,7 +69,7 @@ describe Spree::Subscription do
       @sub.update_attribute(:reorder_on,Date.today)
     end
 
-    it "should have reorder reset" do
+    it "should have reorder_on reset" do
       @sub.reorder_on.should eq(Date.today)
       @sub.reorder.should be_true
       @sub.reorder_on.should eq(Date.today + 3.month)
@@ -81,40 +81,53 @@ describe Spree::Subscription do
     end
 
     it "should have a valid order with a billing address" do
-      @sub.reorder.should be_true
+      @sub.create_reorder.should be_true
       order = @sub.reorders.first
       order.bill_address.should == @sub.billing_address  # DD: uses == operator override in Spree::Address
       order.bill_address.id.should_not eq @sub.billing_address.id # DD: not the same database record
     end
 
     it "should have a valid order with a shipping address" do
-      @sub.reorder.should be_true
+      @sub.create_reorder.should be_true
       order = @sub.reorders.first
       order.ship_address.should == @sub.shipping_address  # DD: uses == operator override in Spree::Address
       order.ship_address.id.should_not eq @sub.shipping_address.id # DD: not the same database record
     end
 
     it "should have a valid order with a shipping method" do
-      @sub.reorder.should be_true
+      @sub.create_reorder.should be_true
       order = @sub.reorders.first
       expect(order.shipping_method).to eq @sub.shipping_method  # DD: should be same database record
     end
 
+    it "should have a valid line item" do
+      @sub.create_reorder
+      @sub.add_subscribed_line_item.should be_true
+      order = @sub.reorders.first
+      order.line_items.count.should eq(1)
+    end
+
     it "should have a valid order with a payment method" do
-      @sub.reorder.should be_true
+      @sub.create_reorder
+      @sub.add_subscribed_line_item
+      @sub.add_payment.should be_true
       order = @sub.reorders.first
       expect(order.payment_method).to eq @sub.payment_method  # DD: should be same database record
     end
 
     it "should have a valid order with a payment source" do
-      @sub.reorder.should be_true
+      @sub.create_reorder
+      @sub.add_subscribed_line_item
+      @sub.add_payment.should be_true
       order = @sub.reorders.first
       order.payments.count.should be(1)
       expect(order.payments.first.source).to eq @sub.source  # DD: should be same database record
     end
 
     it "should have a payment" do
-      @sub.reorder.should be_true
+      @sub.create_reorder
+      @sub.add_subscribed_line_item
+      @sub.add_payment.should be_true
       order = @sub.reorders.first
       order.payments.should be
     end
