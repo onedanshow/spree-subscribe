@@ -8,7 +8,7 @@ class CreateSpreeSubscriptions < ActiveRecord::Migration
       t.references :shipping_address
       t.references :payment_method
       t.references :source, :polymorphic => true
-      t.string :email # DD: needed because tied to line item?
+      t.references :user
       t.string :state
       t.date :reorder_on
       t.timestamps

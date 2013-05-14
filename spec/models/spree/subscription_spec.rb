@@ -53,6 +53,12 @@ describe Spree::Subscription do
       @sub.activate
       @sub.source.should be
     end
+
+    it "should have a user on activation" do
+      @sub.user.should be_nil
+      @sub.activate
+      @sub.user.should be
+    end
   end
 
   context "that is ready for reorder" do

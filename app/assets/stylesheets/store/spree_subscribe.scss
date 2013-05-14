@@ -1,0 +1,20 @@
+/*
+ *= require store/spree_core
+*/
+
+#content {
+  .subscription-wrapper {
+    margin-bottom: 25px;
+    width: 100%;
+
+    table.subscription-summary {
+      width: 100%;
+
+      tbody {
+        td {
+          text-align: center;
+        }
+      }
+    }
+  }
+}

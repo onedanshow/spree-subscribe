@@ -2,6 +2,19 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  subscribe:
+    users_show_title: "My Subscriptions"
+    no_subscriptions_available: "You do not have any subscriptions setup."
+    product: "Product"
+    price: "Price"
+    interval: "Delivers Every"
+    reorder_on: "Reorders on"
+    status: "Status"
+    suspend_subscription: "Suspend"
+    are_you_sure_suspend: "Are you sure that you want to suspend this subscription?"
+    resume_subscription: "Resume"
+    are_you_sure_resume: "Are you sure that you want to resume this subscription?"
+
   subscriptions_config_label: "Subscriptions"
   subscription_intervals: "Subscription Intervals"
   new_subscription_interval: "New Subscription Interval"

@@ -1,5 +1,5 @@
 class Spree::Subscription < ActiveRecord::Base
-  attr_accessible :reorder_on, :email, :interval_id, :line_item_id, :billing_address_id,
+  attr_accessible :reorder_on, :user_id, :interval_id, :line_item_id, :billing_address_id,
     :shipping_address_id, :shipping_method_id, :payment_method_id, :source_id, :source_type
 
   attr_accessor :new_order
@@ -11,6 +11,7 @@ class Spree::Subscription < ActiveRecord::Base
   belongs_to :interval, :class_name => "Spree::SubscriptionInterval"
   belongs_to :source, :polymorphic => true, :validate => true
   belongs_to :payment_method
+  belongs_to :user, :class_name => Spree.user_class.to_s
 
   has_many :reorders, :class_name => "Spree::Order"
 
@@ -44,7 +45,7 @@ class Spree::Subscription < ActiveRecord::Base
   def create_reorder
     # DD: create order
     self.new_order = Spree::Order.create(
-        :email => self.line_item.order.email,  # DD: TODO get from here?
+        :user_id => self.line_item.order.email,  # DD: TODO get from here?
         :bill_address => self.billing_address.clone,
         :ship_address => self.shipping_address.clone,
         :subscription_id => self.id
@@ -107,6 +108,7 @@ class Spree::Subscription < ActiveRecord::Base
     self.payment_method_id = self.line_item.order.payments.first.payment_method_id
     self.source_id = self.line_item.order.payments.first.source_id
     self.source_type = self.line_item.order.payments.first.source_type
+    self.user_id = self.line_item.order.user_id
     # DD: TODO: set quantity?
     save!
   end
