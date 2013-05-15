@@ -13,6 +13,9 @@ en:
     suspend_subscription: "Suspend"
     are_you_sure_suspend: "Are you sure that you want to suspend this subscription?"
     resume_subscription: "Resume"
+    subscribable: "Subscribable?"
+    subscribed_price: "Subscription Price"
+    intervals: "Subscription Intervals"
 
   subscriptions_config_label: "Subscriptions"
   subscription_intervals: "Subscription Intervals"

@@ -33,6 +33,7 @@ Future To-Do
 -------
 
 * Create Spree::SubscriptionsController and views for edit and update actions
+* Extend Spree API to handle subscriptions?
 
 Testing
 -------

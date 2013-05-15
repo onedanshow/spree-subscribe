@@ -1,0 +1,5 @@
+<!-- insert_after "[data-hook='cost_price']" -->
+<div class="field" data-hook="subscribed_price">
+  <%= f.label :subscribed_price, t(:subscribed_price, :scrope => :subscribe) %>
+  <%= f.text_field :subscribed_price, :value => number_to_currency(@variant.subscribed_price, :unit => ''), :class => 'fullwidth' %>
+</div>
