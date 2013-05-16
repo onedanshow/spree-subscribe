@@ -24,7 +24,7 @@ Spree::OrdersController.class_eval do
 
     # DD: set subscribed price
     if line_item.variant.subscribed_price.present?
-      line_item.update_attributes :price => line_item.variant.subscribed_price
+      line_item.price = line_item.variant.subscribed_price
     end
 
     # DD: create subscription
@@ -32,8 +32,9 @@ Spree::OrdersController.class_eval do
       line_item.subscription.update_attributes :interval_id => interval_id
     else
       line_item.subscription = Spree::Subscription.create :interval_id => interval_id
-      line_item.save
     end
+
+    line_item.save
 
     line_item.subscription
   end

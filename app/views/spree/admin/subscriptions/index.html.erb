@@ -1,0 +1,66 @@
+<% content_for :page_title do %>
+  <%= t(:listing_subscriptions, :scope => :subscribe) %>
+<% end %>
+
+<% content_for :page_actions do %>
+
+<% end %>
+
+<% content_for :table_filter_title do %>
+  Daniel
+<% end %>
+
+<%= render "spree/admin/shared/orders_sub_menu" %>
+
+<% unless @subscriptions.empty? %>
+  <table class="index responsive" id="listing_orders" data-hook width="100%">
+    <colgroup>
+       <col style="width: 16%;">
+       <col style="width: 13%;">
+       <col style="width: 14%;">
+       <col style="width: 14%;">
+       <col style="width: 14%;">
+       <col style="width: 17%;">
+       <col style="width: 12%;">
+    </colgroup>
+    <thead>
+        <tr>
+          <th class="subscription-product"><%= t(:product, :scope => :subscribe) %></th>
+          <th class="subscription-user"><%= t(:user, :scope => :subscribe) %></th>
+          <th class="subscription-price"><%= t(:price, :scope => :subscribe) %></th>
+          <th class="subscription-interval"><%= t(:interval, :scope => :subscribe) %></th>
+          <th class="subscription-reorder-date"><%= t(:reorder_on, :scope => :subscribe) %></th>
+          <th class="subscription-status"><%= t(:status, :scope => :subscribe) %></th>
+          <th class="subscription-actions">&nbsp;</th>
+        </tr>
+      </thead>
+    <tbody>
+    <% @subscriptions.each do |sub| %>
+      <tr data-hook="admin_subscriptions_index_rows" class="state-<%= sub.state.downcase %> <%= cycle('odd', 'even') %>">
+        <td class="subscription-product">
+          <span class="product-name"><%= sub.line_item.variant.name %></span><br/>
+          <%= sub.line_item.variant.options_text %>
+        </td>
+        <td class="subscription-user"><%= sub.user.id %></td>
+        <td class="subscription-price"><%= money sub.line_item.price %></td>
+        <td class="subscription-interval"><%= sub.interval.name %></td>
+        <td class="subscription-reorder-date">
+          <% if sub.active? %>
+            <%= l sub.reorder_on.to_date %>
+          <% else %>
+            -
+          <% end %>
+        </td>
+        <td class="subscription-status"><%= sub.state.titleize %></td>
+        <td class="subscription-actions"></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="no-objects-found">
+    <%= t(:no_subscriptions_found)%>
+  </div>
+<% end %>
+
+<%= paginate @subscriptions %>

@@ -25,14 +25,15 @@ Developer To-Do
 -------
 
 * Allow subscriptions to be suspended / resumed using Spree::SubscriptionsController and views using destroy action
-* Add subscription price to variants so that customes save money
 * Create Spree::Admin::SubscriptionsController and views for edit, update, and destroy actions
-* Deface admin product and variant forms with additional fields
+* Create Spree::Admin::SubscriptionIntervalsController and views for edit, update, and destroy actions
 
 Future To-Do
 -------
 
+* Update Product#show javascript to show subscription price when subscription interval is selected
 * Create Spree::SubscriptionsController and views for edit and update actions
+* Email customers when a re-order is shipped?
 * Extend Spree API to handle subscriptions?
 
 Testing

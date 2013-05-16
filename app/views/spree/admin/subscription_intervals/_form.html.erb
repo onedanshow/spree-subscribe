@@ -1,0 +1,19 @@
+<div data-hook="admin_inside_subscription_interval_form" class="field">
+  <%= f.field_container :name do %>
+    <%= f.label :name, t(:name) %> <span class="required">*</span><br />
+    <%= error_message_on :subscription_interval, :name, :class => 'fullwidth title' %>
+    <%= text_field :subscription_interval, :name %>
+  <% end %>
+
+  <%= f.field_container :times do %>
+    <%= f.label :times, t(:times) %> <span class="required">*</span><br />
+    <%= error_message_on :subscription_interval, :times, :class => 'fullwidth title' %>
+    <%= text_field :subscription_interval, :times %>
+  <% end %>
+
+  <%= f.field_container :time_unit do %>
+    <%= f.label :time_unit, t(:time_unit) %><br/>
+    <%= error_message_on :subscription_interval, :time_unit, :class => 'fullwidth title' %>
+    <%= select_tag "subscriptions[interval_id]", options_for_select( Spree::SubscriptionInterval::UNITS.invert.to_a ) %>
+  <% end %>
+</div>

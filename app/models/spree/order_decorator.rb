@@ -9,7 +9,7 @@ Spree::Order.class_eval do
 
   def activate_subscriptions!
     line_items.each do |line_item|
-      line_item.subscription.activate if line_item.subscription
+      line_item.subscription.start if line_item.subscription
     end
   end
 
