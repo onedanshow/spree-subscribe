@@ -20,12 +20,12 @@ en:
     listing_subscriptions: "Listing Subscriptions"
   intervals:
     new: "New Subscription Interval"
+    edit: "Edit Subscription Interval"
     back_to_intervals_list: "Back to Subscription Intervals"
+    name: "Display Name"
+    time: "Reorders every"
 
   no_subscriptions_found: "No subscriptions were found"
   subscriptions_config_label: "Subscriptions"
   subscription_intervals: "Subscription Intervals"
   new_subscription_interval: "New Subscription Interval"
-  subscription_interval_name: "Deliver Every (Name)"
-  subscription_interval_times: "Reoccurs"
-  subscription_interval_time_unit: "Time Unit"

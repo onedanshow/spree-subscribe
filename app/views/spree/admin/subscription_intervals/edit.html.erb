@@ -1,0 +1,22 @@
+<%= render :partial => 'spree/admin/shared/configuration_menu' %>
+
+<% content_for :page_title do %>
+  <%= t(:edit, :scope => :intervals) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to t(:back_to_intervals_list, :scope => :intervals), spree.admin_subscription_intervals_path, :icon => 'icon-arrow-left' %>
+  </li>
+<% end %>
+
+<%= form_for [:admin, @subscription_interval] do |f| %>
+
+  <%= render :partial => 'form', :locals => { :f => f } %>
+  <fieldset class="no-border-top">
+    <br>
+    <div class="filter-actions actions" data-hook="buttons">
+      <%= button t(:update), 'icon-ok' %>
+    </div>
+  </fieldset>
+<% end %>

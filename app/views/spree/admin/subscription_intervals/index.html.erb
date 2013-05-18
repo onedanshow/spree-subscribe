@@ -19,9 +19,8 @@
     <col style="width: 15%">
   </colgroup>
   <thead>
-    <th><%= t(:subscription_interval_name) %></th>
-    <th><%= t(:subscription_interval_times) %></th>
-    <th><%= t(:subscription_interval_time_unit) %></th>
+    <th><%= t(:name, :scope => :intervals) %></th>
+    <th colspan="2"><%= t(:time, :scope => :intervals) %></th>
     <th data-hook="admin_stores_index_header_actions" class="actions"></th>
   </thead>
   <tbody>
@@ -29,7 +28,7 @@
       <tr id="<%= spree_dom_id interval %>" data-hook="admin_subscription_intervals_index_rows" class="<%= cycle('odd', 'even') %>">
         <td><%= interval.name %></td>
         <td><%= interval.times %></td>
-        <td><%= interval.time_unit_name.to_s.titleize %></td>
+        <td><%= interval.time_unit_symbol.to_s.titleize %></td>
         <td data-hook="admin_subscription_intervals_index_row_actions" class="actions">
           <%= link_to_edit interval, :no_text => true %> &nbsp;
           <%= link_to_delete interval, :no_text => true %>
