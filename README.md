@@ -26,7 +26,6 @@ Developer To-Do
 
 * Allow subscriptions to be suspended / resumed using Spree::SubscriptionsController and views using destroy action
 * Create Spree::Admin::SubscriptionsController and views for edit, update, and destroy actions
-* Create Spree::Admin::SubscriptionIntervalsController and views for edit, update, and destroy actions
 
 Future To-Do
 -------
@@ -35,6 +34,7 @@ Future To-Do
 * Create Spree::SubscriptionsController and views for edit and update actions
 * Email customers when a re-order is shipped?
 * Extend Spree API to handle subscriptions?
+* Move Intervalable#time_title to a helper so can use time_unit_symbol to pull from localization
 
 Testing
 -------
