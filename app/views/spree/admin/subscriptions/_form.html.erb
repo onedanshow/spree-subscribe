@@ -1,0 +1,26 @@
+<div data-hook="admin_inside_subscriptions_form" class="field">
+
+<%= form_for @subscription, :url => admin_subscription_url(@subscription), :method => :put do |f| %>
+
+  <%= f.field_container :reorder_on do %>
+    <%= f.label :reorder_on, t(:reorder_on, :scope => :subscriptions) %> <span class="required">*</span><br />
+    <%= error_message_on :subscription, :reorder_on, :class => 'fullwidth title' %>
+    <%= text_field :subscription, :reorder_on %>
+  <% end %>
+
+  <%= f.field_container :state do %>
+    <%= f.label :state, t(:state, :scope => :subscriptions) %> <span class="required">*</span><br />
+    <%= error_message_on :subscription, :state, :class => 'fullwidth title' %>
+    <%= select_tag "subscription[state]", options_for_select( Spree::Subscription.reorder_states, @subscription.state ) %>
+  <% end %>
+
+  <fieldset class="no-border-top">
+    <br>
+    <div class="filter-actions actions" data-hook="buttons">
+      <%= button t(:update), 'icon-ok' %>
+    </div>
+  </fieldset>
+
+<% end %>
+
+</div>

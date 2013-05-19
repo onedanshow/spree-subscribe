@@ -18,6 +18,8 @@ en:
     subscribed_price: "Subscription Price"
     intervals: "Subscription Intervals"
     listing_subscriptions: "Listing Subscriptions"
+    edit: "Edit Subscription"
+    back_to_list: "Back to Subscriptions"
   intervals:
     new: "New Subscription Interval"
     edit: "Edit Subscription Interval"

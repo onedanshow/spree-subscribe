@@ -31,7 +31,7 @@
           <th class="subscription-interval"><%= t(:interval, :scope => :subscribe) %></th>
           <th class="subscription-reorder-date"><%= t(:reorder_on, :scope => :subscribe) %></th>
           <th class="subscription-status"><%= t(:status, :scope => :subscribe) %></th>
-          <th class="subscription-actions">&nbsp;</th>
+          <th class="actions subscription-actions">&nbsp;</th>
         </tr>
       </thead>
     <tbody>
@@ -52,7 +52,9 @@
           <% end %>
         </td>
         <td class="subscription-status"><%= sub.state.titleize %></td>
-        <td class="subscription-actions"></td>
+        <td class='actions subscription-actions align-center' data-hook="admin_subscriptions_index_row_actions">
+          <%= link_to_edit_url edit_admin_subscription_path(sub), :title => "admin_edit_#{dom_id(sub)}", :no_text => true %>
+        </td>
       </tr>
     <% end %>
     </tbody>

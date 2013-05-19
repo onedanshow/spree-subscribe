@@ -21,7 +21,7 @@ Setup a cron job to run this rake task every night
     rake spree_subscribe:reorders:create
 
 
-Developer To-Do
+Version 0.2 To-Do
 -------
 
 * Allow subscriptions to be suspended / resumed using Spree::SubscriptionsController and views using destroy action
@@ -35,6 +35,7 @@ Future To-Do
 * Email customers when a re-order is shipped?
 * Extend Spree API to handle subscriptions?
 * Move Intervalable#time_title to a helper so can use time_unit_symbol to pull from localization
+* Extend Spree::Admin::SubscriptionsController to include filtering and sorting
 
 Testing
 -------

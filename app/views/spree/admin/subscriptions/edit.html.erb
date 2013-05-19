@@ -1,0 +1,22 @@
+<%= csrf_meta_tags %>
+<% content_for :page_title do %>
+  <%= t(:edit, :scope => :subscribe) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li><%= button_link_to t(:back_to_list, :scope => :subscribe), spree.admin_subscriptions_path, :icon => 'icon-arrow-left' %></li>
+<% end %>
+
+<%= render "spree/admin/shared/orders_sub_menu" %>
+
+<% #= render :partial => 'spree/admin/shared/order_tabs', :locals => { :current => 'Subscription Details' } %>
+
+<div data-hook="admin_subscription_edit_header">
+  <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @subscription } %>
+</div>
+
+<div data-hook="admin_subscription_edit_form">
+  <div id="order-form-wrapper">
+    <%= render :partial => 'form', :locals => { :order => @subscription } %>
+  </div>
+</div>

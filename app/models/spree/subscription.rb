@@ -1,5 +1,5 @@
 class Spree::Subscription < ActiveRecord::Base
-  attr_accessible :reorder_on, :user_id, :interval_id, :line_item_id, :billing_address_id,
+  attr_accessible :reorder_on, :user_id, :interval_id, :line_item_id, :billing_address_id, :state,
     :shipping_address_id, :shipping_method_id, :payment_method_id, :source_id, :source_type
 
   attr_accessor :new_order
@@ -117,6 +117,10 @@ class Spree::Subscription < ActiveRecord::Base
       :source_type => self.line_item.order.payments.first.source_type,
       :user_id => self.line_item.order.user_id
     )
+  end
+
+  def self.reorder_states
+    @reorder_states ||= state_machine.states.map(&:name) - ["cart"]
   end
 
 end
