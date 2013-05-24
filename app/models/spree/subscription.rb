@@ -1,6 +1,10 @@
+require 'concerns/intervalable'
+
 class Spree::Subscription < ActiveRecord::Base
-  attr_accessible :reorder_on, :user_id, :interval_id, :line_item_id, :billing_address_id, :state,
+  attr_accessible :reorder_on, :user_id, :times, :time_unit, :line_item_id, :billing_address_id, :state,
     :shipping_address_id, :shipping_method_id, :payment_method_id, :source_id, :source_type
+
+  include Intervalable
 
   attr_accessor :new_order
 
@@ -8,7 +12,7 @@ class Spree::Subscription < ActiveRecord::Base
   belongs_to :billing_address, :foreign_key => :billing_address_id, :class_name => "Spree::Address"
   belongs_to :shipping_address, :foreign_key => :shipping_address_id, :class_name => "Spree::Address"
   belongs_to :shipping_method
-  belongs_to :interval, :class_name => "Spree::SubscriptionInterval"
+  #belongs_to :interval, :class_name => "Spree::SubscriptionInterval"
   belongs_to :source, :polymorphic => true, :validate => true
   belongs_to :payment_method
   belongs_to :user, :class_name => Spree.user_class.to_s
@@ -92,7 +96,7 @@ class Spree::Subscription < ActiveRecord::Base
 
   def calculate_reorder_date!
     self.reorder_on ||= Date.today
-    self.reorder_on += self.interval.time
+    self.reorder_on += self.time
     save
   end
 
@@ -106,6 +110,7 @@ class Spree::Subscription < ActiveRecord::Base
     end
   end
 
+  # DD: assumes interval attributes come in when created/updated in cart
   def set_checkout_requirements
     # DD: TODO: set quantity?
     update_attributes(

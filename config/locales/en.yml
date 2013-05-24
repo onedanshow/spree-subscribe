@@ -20,6 +20,7 @@ en:
     listing_subscriptions: "Listing Subscriptions"
     edit: "Edit Subscription"
     back_to_list: "Back to Subscriptions"
+    none_found: "No subscriptions were found"
   intervals:
     new: "New Subscription Interval"
     edit: "Edit Subscription Interval"
@@ -27,7 +28,6 @@ en:
     name: "Display Name"
     time: "Reorders every"
 
-  no_subscriptions_found: "No subscriptions were found"
   subscriptions_config_label: "Subscriptions"
   subscription_intervals: "Subscription Intervals"
   new_subscription_interval: "New Subscription Interval"
