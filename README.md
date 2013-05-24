@@ -36,6 +36,7 @@ Future To-Do
 * Extend Spree API to handle subscriptions?
 * Move Intervalable#time_title to a helper so can use time_unit_symbol to pull from localization
 * Extend Spree::Admin::SubscriptionsController to include filtering and sorting
+* For a reorder, if a shipping method is no longer available, select the cheapest.
 
 Testing
 -------

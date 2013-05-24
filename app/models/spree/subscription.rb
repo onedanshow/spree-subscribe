@@ -33,15 +33,17 @@ class Spree::Subscription < ActiveRecord::Base
     end
 
     after_transition :to => 'active', :do => :calculate_reorder_date!
-    after_transition :to => 'active', :do => :set_checkout_requirements
+    after_transition :on => :start, :do => :set_checkout_requirements
     after_transition :on => :resume, :do => :check_reorder_date
   end
 
+  # DD: TODO pull out into a ReorderBuilding someday
   def reorder
     raise false unless self.state == 'active'
 
     create_reorder &&
     add_subscribed_line_item &&
+    select_shipping &&
     add_payment &&
     confirm_reorder &&
     complete_reorder &&
@@ -50,13 +52,12 @@ class Spree::Subscription < ActiveRecord::Base
 
   def create_reorder
     self.new_order = Spree::Order.create(
-        :bill_address => self.billing_address.clone,
-        :ship_address => self.shipping_address.clone,
-        :subscription_id => self.id,
-        :email => self.user.email
+        bill_address: self.billing_address.clone,
+        ship_address: self.shipping_address.clone,
+        subscription_id: self.id,
+        email: self.user.email
       )
     self.new_order.user_id = self.user_id
-    self.new_order.shipping_method_id = self.shipping_method_id
 
     # DD: make it work with spree_multi_domain
     if self.new_order.respond_to?(:store_id)
@@ -69,11 +70,20 @@ class Spree::Subscription < ActiveRecord::Base
   def add_subscribed_line_item
     variant = Spree::Variant.find(self.line_item.variant_id)
 
-    line_item = self.new_order.add_variant( variant, self.line_item.quantity )
+    line_item = self.new_order.contents.add( variant, self.line_item.quantity )
     line_item.price = self.line_item.price
     line_item.save!
 
     self.new_order.next # -> delivery
+  end
+
+  def select_shipping
+    # DD: shipments are created when order state goes to "delivery"
+    shipment = self.new_order.shipments.first # DD: there should be only one shipment
+    rate = shipment.shipping_rates.first{|r| r.shipping_method.id == self.shipping_method.id }
+    raise "No rate was found. TODO: Implement logic to select the cheapest rate." unless rate
+    shipment.selected_shipping_rate_id = rate.id
+    shipment.save
   end
 
   def add_payment
@@ -112,15 +122,16 @@ class Spree::Subscription < ActiveRecord::Base
 
   # DD: assumes interval attributes come in when created/updated in cart
   def set_checkout_requirements
+    order = self.line_item.order
     # DD: TODO: set quantity?
     update_attributes(
-      :billing_address_id => self.line_item.order.bill_address_id,
-      :shipping_address_id => self.line_item.order.ship_address_id,
-      :shipping_method_id => self.line_item.order.shipping_method_id,
-      :payment_method_id => self.line_item.order.payments.first.payment_method_id,
-      :source_id => self.line_item.order.payments.first.source_id,
-      :source_type => self.line_item.order.payments.first.source_type,
-      :user_id => self.line_item.order.user_id
+      :billing_address_id => order.bill_address_id,
+      :shipping_address_id => order.ship_address_id,
+      :shipping_method_id => order.shipping_method_for_variant( self.line_item.variant ).id,
+      :payment_method_id => order.payments.first.payment_method_id,
+      :source_id => order.payments.first.source_id,
+      :source_type => order.payments.first.source_type,
+      :user_id => order.user_id
     )
   end
 

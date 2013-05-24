@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Spree::SubscriptionInterval do
 
   before(:each) do
-    @interval = Factory(:subscription_interval)
+    @interval = create(:subscription_interval)
   end
 
   it "has a 3 month time period" do
