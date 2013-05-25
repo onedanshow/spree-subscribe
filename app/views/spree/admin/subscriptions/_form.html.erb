@@ -3,23 +3,19 @@
 <%= form_for @subscription, :url => admin_subscription_url(@subscription), :method => :put do |f| %>
 
   <%= f.field_container :reorder_on do %>
-    <%= f.label :reorder_on, t(:reorder_on, :scope => :subscriptions) %> <span class="required">*</span><br />
+    <%= f.label :reorder_on, t(:reorder_on, :scope => :subscribe) %> <span class="required">*</span><br />
     <%= error_message_on :subscription, :reorder_on, :class => 'fullwidth title' %>
-    <%= text_field :subscription, :reorder_on %>
+    <% #= text_field :subscription, :reorder_on %>
+    <%= f.text_field :reorder_on, :value => datepicker_field_value(@subscription.reorder_on), :class => 'datepicker' %>
   <% end %>
 
   <%= f.field_container :state do %>
-    <%= f.label :state, t(:state, :scope => :subscriptions) %> <span class="required">*</span><br />
+    <%= f.label :state, t(:state, :scope => :subscribe) %> <span class="required">*</span><br />
     <%= error_message_on :subscription, :state, :class => 'fullwidth title' %>
     <%= select_tag "subscription[state]", options_for_select( Spree::Subscription.reorder_states, @subscription.state ) %>
   <% end %>
 
-  <fieldset class="no-border-top">
-    <br>
-    <div class="filter-actions actions" data-hook="buttons">
-      <%= button t(:update), 'icon-ok' %>
-    </div>
-  </fieldset>
+  <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
 
 <% end %>
 

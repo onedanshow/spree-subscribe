@@ -29,7 +29,7 @@ class Spree::Subscription < ActiveRecord::Base
       transition :to => 'active', :from => ['cart','inactive']
     end
     event :cancel do
-      transition :to => 'cancel', :from => 'active'
+      transition :to => 'cancelled', :from => 'active'
     end
 
     after_transition :on => :start, :do => :set_checkout_requirements
