@@ -13,10 +13,5 @@
 <%= form_for [:admin, @subscription_interval] do |f| %>
 
   <%= render :partial => 'form', :locals => { :f => f } %>
-  <fieldset class="no-border-top">
-    <br>
-    <div class="filter-actions actions" data-hook="buttons">
-      <%= button t(:create), 'icon-ok' %>
-    </div>
-  </fieldset>
+  <%= render :partial => 'spree/admin/shared/new_resource_links' %>
 <% end %>

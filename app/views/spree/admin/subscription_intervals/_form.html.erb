@@ -11,5 +11,5 @@
   <%= number_field :subscription_interval, :times %>
 
   <%= error_message_on :subscription_interval, :time_unit, :class => 'fullwidth title' %>
-  <%= select_tag "subscription_interval[time_unit]", options_for_select( Spree::SubscriptionInterval::UNITS.invert.to_a ) %>
+  <%= select_tag "subscription_interval[time_unit]", options_for_select( Spree::SubscriptionInterval::UNITS.invert.to_a, f.object.time_unit ) %>
 </div>
