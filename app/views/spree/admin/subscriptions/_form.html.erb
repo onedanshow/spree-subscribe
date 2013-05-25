@@ -15,6 +15,16 @@
     <%= select_tag "subscription[state]", options_for_select( Spree::Subscription.reorder_states, @subscription.state ) %>
   <% end %>
 
+  <%= f.field_container :time do %>
+    <label><%= t(:time, :scope => :intervals) %> <span class="required">*</span></label><br />
+
+    <%= error_message_on :subscription, :times, :class => 'fullwidth title' %>
+    <%= number_field :subscription, :times %>
+
+    <%= error_message_on :subscription, :time_unit, :class => 'fullwidth title' %>
+    <%= select_tag "subscription[time_unit]", options_for_select( Spree::Subscription::UNITS.invert.to_a, @subscription.time_unit ) %>
+  <% end %>
+
   <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
 
 <% end %>

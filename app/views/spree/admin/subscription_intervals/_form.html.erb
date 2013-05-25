@@ -5,11 +5,11 @@
     <%= text_field :subscription_interval, :name, placeholder: "Ex: 3 Months" %>
   <% end %>
 
-    <label><%= t(:time, :scope => :intervals) %> <span class="required">*</span></label><br />
+  <label><%= t(:time, :scope => :intervals) %> <span class="required">*</span></label><br />
 
-    <%= error_message_on :subscription_interval, :times, :class => 'fullwidth title' %>
-    <%= number_field :subscription_interval, :times %>
+  <%= error_message_on :subscription_interval, :times, :class => 'fullwidth title' %>
+  <%= number_field :subscription_interval, :times %>
 
-    <%= error_message_on :subscription_interval, :time_unit, :class => 'fullwidth title' %>
-    <%= select_tag "subscription_interval[time_unit]", options_for_select( Spree::SubscriptionInterval::UNITS.invert.to_a ) %>
+  <%= error_message_on :subscription_interval, :time_unit, :class => 'fullwidth title' %>
+  <%= select_tag "subscription_interval[time_unit]", options_for_select( Spree::SubscriptionInterval::UNITS.invert.to_a ) %>
 </div>
