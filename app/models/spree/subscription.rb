@@ -32,7 +32,6 @@ class Spree::Subscription < ActiveRecord::Base
       transition :to => 'cancel', :from => 'active'
     end
 
-    after_transition :to => 'active', :do => :calculate_reorder_date!
     after_transition :on => :start, :do => :set_checkout_requirements
     after_transition :on => :resume, :do => :check_reorder_date
   end

@@ -24,14 +24,13 @@ Setup a cron job to run this rake task every night
 Version 0.2 To-Do
 -------
 
-* Allow subscriptions to be suspended / resumed using Spree::SubscriptionsController and views using destroy action
 * Create Spree::Admin::SubscriptionsController and views for edit, update, and destroy actions
 
 Future To-Do
 -------
 
 * Update Product#show javascript to show subscription price when subscription interval is selected
-* Create Spree::SubscriptionsController and views for edit and update actions
+* Create Spree::SubscriptionsController and views for edit and update actions for the customer
 * Email customers when a re-order is shipped?
 * Extend Spree API to handle subscriptions?
 * Move Intervalable#time_title to a helper so can use time_unit_symbol to pull from localization
