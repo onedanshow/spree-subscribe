@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/onedanshow/spree-subscribe.png)](https://travis-ci.org/onedanshow/spree-subscribe)
 [![Code Climate](https://codeclimate.com/github/onedanshow/spree-subscribe.png)](https://codeclimate.com/github/onedanshow/spree-subscribe)
 
-**This extension is not production ready.**
+**This extension is ready for beta testing.**
 
 SpreeSubscribe
 ==============
@@ -14,17 +14,11 @@ Installation
 
 Add this to your Gemfile
 
-    gem "spree_subscribe", github: "onedanshow/spree_subscribe"
+    gem "spree_subscribe", github: "onedanshow/spree-subscribe", branch: '2-0-beta'
 
 Setup a cron job to run this rake task every night
 
     rake spree_subscribe:reorders:create
-
-
-Version 0.2 To-Do
--------
-
-* Create Spree::Admin::SubscriptionsController and views for edit, update, and destroy actions
 
 Future To-Do
 -------
