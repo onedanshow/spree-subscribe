@@ -16,6 +16,10 @@ Add this to your Gemfile
 
     gem "spree_subscribe", github: "onedanshow/spree-subscribe", branch: '2-0-beta'
 
+Install the database migrations
+
+    rake spree_subscribe:install:migrations
+
 Setup a cron job to run this rake task every night
 
     rake spree_subscribe:reorders:create
