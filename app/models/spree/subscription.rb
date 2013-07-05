@@ -123,6 +123,7 @@ class Spree::Subscription < ActiveRecord::Base
   def set_checkout_requirements
     order = self.line_item.order
     # DD: TODO: set quantity?
+    calculate_reorder_date!
     update_attributes(
       :billing_address_id => order.bill_address_id,
       :shipping_address_id => order.ship_address_id,
