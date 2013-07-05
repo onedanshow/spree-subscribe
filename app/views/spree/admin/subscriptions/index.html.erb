@@ -41,7 +41,7 @@
           <span class="product-name"><%= sub.line_item.variant.name %></span><br/>
           <%= sub.line_item.variant.options_text %>
         </td>
-        <td class="subscription-user"><%= sub.user.id %></td>
+        <td class="subscription-user"><%= link_to(sub.user.email, :controller => "spree/admin/users", :action => "show", :id => sub.user.id) if sub.user %></td>
         <td class="subscription-price"><%= money sub.line_item.price %></td>
         <td class="subscription-interval"><%= sub.time_title %></td>
         <td class="subscription-reorder-date">
