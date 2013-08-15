@@ -1,0 +1,6 @@
+<div id='<%= f.object.name.gsub(' ', '_') %>' >
+  <label><%= f.object.name %></label>
+  <%= f.text_field :subscribed_price %>
+  <%= f.hidden_field :subscription_interval_id %>
+  <%= f.check_box :_destroy %>
+</div>

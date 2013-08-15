@@ -1,5 +1,4 @@
 Spree::Variant.class_eval do
   delegate :subscribable?, :to => :product
-
-  attr_accessible :subscribed_price
+  delegate :subscribed_price, to: :product
 end

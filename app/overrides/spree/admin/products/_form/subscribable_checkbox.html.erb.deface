@@ -7,14 +7,6 @@
   <% end %>
 </div>
 
-<% unless @product.has_variants? %>
-<div class="omega two columns">
-  <%= f.field_container :subscribed_price do %>
-    <%= f.label :subscribed_price, t(:subscribed_price, :scope => :subscribe) %>
-    <%= f.text_field :subscribed_price, :value => number_to_currency(@product.subscribed_price, :unit => '') %>
-    <%= f.error_message_on :subscribed_price %>
-  <% end %>
-</div>
-<% end %>
+
 
 <div class="clear"></div>
