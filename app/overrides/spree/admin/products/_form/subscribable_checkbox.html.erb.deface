@@ -1,8 +1,8 @@
-<!-- insert_bottom "[data-hook='admin_product_form_right']" -->
-<div class="alpha two columns">
-  <%= f.field_container :subscribable, :class => ['checkbox'] do %>
-    <%= f.label :subscribable, t(:subscribable, :scope => :subscribe) %>
-    <%= f.check_box :subscribable %>
+<!-- insert_before "[data-hook='admin_product_form_meta']" -->
+<div class="alpha three columns">
+  <%= f.field_container :subscribable do %>
+    <%= f.label :subscribable, t(:subscribable, :scope => :subscribe), class: "two columns alpha hand" %>
+    <%= f.check_box :subscribable, class: "one column alpha hand" %>
     <%= f.error_message_on :subscribable %>
   <% end %>
 </div>

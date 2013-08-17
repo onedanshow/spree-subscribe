@@ -1,6 +1,7 @@
-<div id='<%= f.object.name.gsub(' ', '_') %>' >
-  <label><%= f.object.name %></label>
-  <%= f.text_field :subscribed_price %>
+<div class="subscriptionTag three columns alpha omega" id='<%= f.object.name.gsub(' ', '_') %>' >
+  <label class="three columns alpha omega"><%= f.object.name %></label>
+  <%= f.label :price, class: 'one column alpha'%>
+  <%= f.text_field :subscribed_price, class: 'two columns alpha subscriptionPrice' %>
   <%= f.hidden_field :subscription_interval_id %>
-  <%= f.check_box :_destroy %>
+  <%= f.check_box :_destroy, class: 'hidden' %>
 </div>
