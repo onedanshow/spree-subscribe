@@ -6,7 +6,7 @@
   </div>
   <div>
     <%= radio_button_tag "subscriptions[active]", 1 %> Deliver every
-    <%- options = @product.subscription_intervals.collect{|i| [i.name,i.id] } %>
-    <%= select_tag "subscriptions[interval_id]", options_for_select(options) %>
+    <%- options = @product.subscription_intervals.collect{|i| [i.name,i.id, {'data-subscribed-price' => @product.subscribed_price(i.id)} ] } %>
+    <%= select_tag "subscriptions[interval_id]", options_for_select(options), disabled: true %>
   </div>
 <% end %>

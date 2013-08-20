@@ -5,10 +5,12 @@ subscribeApp.Interval = (function() {
 
   Interval.prototype.template = function(interval) {
     random = Math.floor(Math.random() * 1000 + 1);
-    var element = '<div id=interval_product_' + interval.id + '><label>' + interval.name + '</label>' +
-    '<input name="product[spree_subscription_interval_products_attributes][' + random + '][subscribed_price]" type="text">' +
+    var element = '<div class="subscriptionTag three columns alpha omega" id=' + interval.name.replace(' ','_') + '>' +
+    '<label class="three columns alpha omega">' + interval.name + '</label>' +
+    '<label class="one column alpha">Price:</label>' +
+    '<input class="two columns alpha subscriptionPrice" name="product[spree_subscription_interval_products_attributes][' + random + '][subscribed_price]" type="text">' +
     '<input name="product[spree_subscription_interval_products_attributes][' + random + '][subscription_interval_id]" type="hidden" value="' + interval.id + '">' +
-    '<input name="product[spree_subscription_interval_products_attributes][' + random + '][_destroy]" type="checkbox"></div>'
+    '<input class="hidden" name="product[spree_subscription_interval_products_attributes][' + random + '][_destroy]" type="checkbox"></div>'
     return element;
   };
 
@@ -51,6 +53,9 @@ $(document).ready(function() {
       if (!exist) {
         var intervalProduct = new subscribeApp.Interval()
         $('#interval_products').append(intervalProduct.template(interval));
+      }else {
+        $('#'+ interval.name.replace(' ', '_')).show();
+        $("#" + interval.name.replace(' ','_') + ' :checkbox').prop('checked', false);
       }
       return interval.name;
     }
@@ -58,5 +63,15 @@ $(document).ready(function() {
 
   $("#intervals").on('removed', function(e) {
     $("#" + e.choice.name.replace(' ', '_')).hide();
+    $("#" + e.choice.name.replace(' ','_') + ' :checkbox').prop('checked', true);
+  });
+
+  var subscribable = $("#product_subscribable").is(":checked");
+  if (!subscribable) {
+    $("#subscriptions_container").addClass("hidden")
+  }
+
+  $("#product_subscribable").click(function(){
+    $("#subscriptions_container").toggleClass("hidden");
   });
 })
