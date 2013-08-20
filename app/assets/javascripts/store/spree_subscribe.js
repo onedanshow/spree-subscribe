@@ -1,22 +1,22 @@
 $(document).ready(function() {
-  var regularPrice = $(".price").text();
-  $(":radio").click(function(e) {
-    var interval = e.currentTarget.value;
-    if(interval == 1){
-      $("#subscriptions_interval_id").removeAttr("disabled");
+  var regularPrice = $('.price').text();
 
-      $("select#subscriptions_interval_id").change(function(e) {
-        var price = "";
-        $("select#subscriptions_interval_id option:selected").each(function(){
-          price = "$" + $(this).attr("data-subscribed-price");
-        });
-        $(".price").text(price);
-      })
-      .change();
-    }else{
-      $("#subscriptions_interval_id").attr("disabled","disabled"); 
-      $(".price").text(regularPrice);
-    }
+  var assignPrice = function(price){
+    $('.price').text(price);
+  };
+
+  $('#subscriptions_interval_id').on('change', function(e) { 
+    price = '$' + $(e.target).find('option:selected').data('subscribed-price');
+    assignPrice(price);
   });
 
+  $(':radio').click(function(e) {
+    var oneTime = (e.currentTarget.value == 0);
+
+    $('#subscriptions_interval_id').attr("disabled", oneTime);
+
+    price = oneTime ? regularPrice : '$' + $('#subscriptions_interval_id option:selected').data('subscribed-price');
+
+    assignPrice(price);
+  });
 })
