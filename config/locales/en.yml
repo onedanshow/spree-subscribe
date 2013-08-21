@@ -3,31 +3,33 @@
 
 en:
   subscribe:
-    users_show_title: "My Subscriptions"
-    no_subscriptions_available: "You do not have any subscriptions setup."
-    product: "Product"
-    user: "User"
-    price: "Price"
-    interval: "Delivers Every"
-    reorder_on: "Reorders on"
-    state: "Status"
-    suspend_subscription: "Suspend"
-    are_you_sure_suspend: "Are you sure that you want to suspend this subscription?"
-    resume_subscription: "Resume"
-    subscribable: "Subscribable?"
-    subscribed_price: "Subscription Price"
-    intervals: "Subscription Intervals"
-    listing_subscriptions: "Listing Subscriptions"
-    edit: "Edit Subscription"
-    back_to_list: "Back to Subscriptions"
-    none_found: "No subscriptions were found"
+    users_show_title: My Subscriptions
+    no_subscriptions_available: You do not have any subscriptions setup.
+    product: Product
+    user: User
+    price: Price
+    interval: Delivers Every
+    reorder_on: Reorders on
+    state: Status
+    suspend_subscription: Suspend
+    are_you_sure_suspend: Are you sure that you want to suspend this subscription?
+    resume_subscription: Resume
+    subscribable: Subscribable?
+    subscribed_price: Subscription Price
+    intervals: Subscription Intervals
+    listing_subscriptions: Listing Subscriptions
+    edit: Edit Subscription
+    back_to_list: Back to Subscriptions
+    none_found: No subscriptions were found
+    number: Order Number
+    total: Order Total
   intervals:
-    new: "New Subscription Interval"
-    edit: "Edit Subscription Interval"
-    back_to_intervals_list: "Back to Subscription Intervals"
-    name: "Display Name"
-    time: "Reorders every"
+    new: New Subscription Interval
+    edit: Edit Subscription Interval
+    back_to_intervals_list: Back to Subscription Intervals
+    name: Display Name
+    time: Reorders every
 
-  subscriptions_config_label: "Subscriptions"
-  subscription_intervals: "Subscription Intervals"
-  new_subscription_interval: "New Subscription Interval"
+  subscriptions_config_label: Subscriptions
+  subscription_intervals: Subscription Intervals
+  new_subscription_interval: New Subscription Interval
