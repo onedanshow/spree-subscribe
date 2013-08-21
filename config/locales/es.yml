@@ -1,0 +1,34 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+es:
+  intervals:
+    back_to_intervals_list: Regresar a Periodos de Subscripción
+    edit: Editar Periodo de Subscripción
+    name: Nombre a mostrar
+    new: Nuevo Periodo de Subscripción
+    time: Re-ordenar cada
+  new_subscription_interval: Nuevo Periodo de Subscripción
+  subscribe:
+    are_you_sure_suspend: ¿Estás seguro de suspender la subscripción?
+    back_to_list: Regresar a subscripciones
+    edit: Editar subscripción
+    interval: Entregar cada
+    intervals: Intervalos de subscripción
+    listing_subscriptions: Listado de Subscripciones
+    no_subscriptions_available: No tienes ninguna subscripción
+    none_found: No se encontraron subscripciones
+    number: Número de Orden
+    price: Precio
+    product: Producto
+    reorder_on: Re-Ordenar en
+    resume_subscription: Continuar
+    state: Estado
+    subscribable: ¿Suscribible?
+    subscribed_price: Precio de la subscripción
+    suspend_subscription: Suspender
+    total: Total de la Orde
+    user: Usuario
+    users_show_title: Mis Subscripciones
+  subscriptions_config_label: Subscripciones
+  subscription_intervals: Periodos de Subscripción
