@@ -2,10 +2,12 @@
 <% if @product.subscribable? && @product.subscription_intervals.any? %>
   <%- #DD: when supporting multiple variants at a time: variant_id = @product.has_variants? ? @product.variants.first.id : @product.master.id %>
   <div>
-    <%= radio_button_tag "subscriptions[active]", 0, true %> One-time Purchase
+    <%= radio_button_tag "subscriptions[active]", 0, true %>
+    <label for='subscriptions_active_0'><%= t(:one_time_purchase, scope: :subscribe) %></label>
   </div>
   <div>
-    <%= radio_button_tag "subscriptions[active]", 1 %> Deliver every
+    <%= radio_button_tag "subscriptions[active]", 1 %>
+    <label for='subscriptions_active_1'><%= t(:subscription_purchase, scope: :subscribe) %></label>
     <%- options = @product.subscription_intervals.collect{|i| [i.name,i.id, {'data-subscribed-price' => @product.subscribed_price(i.id)} ] } %>
     <%= select_tag "subscriptions[interval_id]", options_for_select(options), disabled: true %>
   </div>
