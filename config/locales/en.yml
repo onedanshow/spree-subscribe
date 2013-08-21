@@ -23,6 +23,8 @@ en:
     none_found: No subscriptions were found
     number: Order Number
     total: Order Total
+    one_time_purchase: One-Time Purchase
+    subscription_purchase: 'Delivery Every:'
   intervals:
     new: New Subscription Interval
     edit: Edit Subscription Interval

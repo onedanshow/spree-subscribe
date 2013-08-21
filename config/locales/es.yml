@@ -19,6 +19,7 @@ es:
     no_subscriptions_available: No tienes ninguna subscripción
     none_found: No se encontraron subscripciones
     number: Número de Orden
+    one_time_purchase: Compra Única
     price: Precio
     product: Producto
     reorder_on: Re-Ordenar en
@@ -26,6 +27,7 @@ es:
     state: Estado
     subscribable: ¿Suscribible?
     subscribed_price: Precio de la subscripción
+    subscription_purchase: 'Entregar cada:'
     suspend_subscription: Suspender
     total: Total de la Orde
     user: Usuario
