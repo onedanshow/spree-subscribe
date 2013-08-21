@@ -25,9 +25,9 @@
     </colgroup>
     <thead>
         <tr>
-          <th class="subscription-product"><%= t(:product, :scope => :subscribe) %></th>
+          <th class="subscription-product"><%= t(:number, :scope => :subscribe) %></th>
           <th class="subscription-user"><%= t(:user, :scope => :subscribe) %></th>
-          <th class="subscription-price"><%= t(:price, :scope => :subscribe) %></th>
+          <th class="subscription-price"><%= t(:total, :scope => :subscribe) %></th>
           <th class="subscription-interval"><%= t(:interval, :scope => :subscribe) %></th>
           <th class="subscription-reorder-date"><%= t(:reorder_on, :scope => :subscribe) %></th>
           <th class="subscription-status"><%= t(:state, :scope => :subscribe) %></th>
@@ -38,11 +38,10 @@
     <% @subscriptions.each do |sub| %>
       <tr data-hook="admin_subscriptions_index_rows" class="state-<%= sub.state.downcase %> <%= cycle('odd', 'even') %>">
         <td class="subscription-product">
-          <span class="product-name"><%= sub.line_item.variant.name %></span><br/>
-          <%= sub.line_item.variant.options_text %>
+          <span class="product-name"><%= link_to sub.line_item.order.number, edit_admin_order_path(sub.line_item.order.number) %></span>
         </td>
-        <td class="subscription-user"><%= sub.user.id %></td>
-        <td class="subscription-price"><%= money sub.line_item.price %></td>
+        <td class="subscription-user"><%= sub.user.email %></td>
+        <td class="subscription-price"><%= money  sub.line_item.order.total %></td>
         <td class="subscription-interval"><%= sub.time_title %></td>
         <td class="subscription-reorder-date">
           <% if sub.active? %>
