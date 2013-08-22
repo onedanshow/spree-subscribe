@@ -1,8 +1,8 @@
 $(document).ready(function() {
-  var regularPrice = $('.price').text();
+  var regularPrice = $('#product-price .price').text();
 
   var assignPrice = function(price){
-    $('.price').text(price);
+    $('#product-price .price').text(price);
   };
 
   $('#subscriptions_interval_id').on('change', function(e) { 
