@@ -15,4 +15,8 @@ Spree::Product.class_eval do
       first
     interval.subscribed_price
   end
+
+  def subscribed_name(id)
+    subscription_intervals.find(id).name
+  end
 end

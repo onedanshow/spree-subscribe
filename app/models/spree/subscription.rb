@@ -106,7 +106,7 @@ class Spree::Subscription < ActiveRecord::Base
   def calculate_reorder_date!
     self.reorder_on ||= Date.today
     self.reorder_on += self.time
-    save
+    self.save
   end
 
   private
@@ -124,10 +124,11 @@ class Spree::Subscription < ActiveRecord::Base
     order = self.line_item.order
     # DD: TODO: set quantity?
     calculate_reorder_date!
+    shipping_method = order.shipping_method_for_variant( self.line_item.variant )
     update_attributes(
       :billing_address_id => order.bill_address_id,
       :shipping_address_id => order.ship_address_id,
-      :shipping_method_id => order.shipping_method_for_variant( self.line_item.variant ).id,
+      :shipping_method_id => shipping_method && shipping_method.id,
       :payment_method_id => order.payments.first.payment_method_id,
       :source_id => order.payments.first.source_id,
       :source_type => order.payments.first.source_type,
