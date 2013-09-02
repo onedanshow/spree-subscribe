@@ -2,7 +2,7 @@ require 'concerns/intervalable'
 
 class Spree::Subscription < ActiveRecord::Base
   attr_accessible :reorder_on, :user_id, :times, :time_unit, :line_item_id, :billing_address_id, :state,
-    :shipping_address_id, :shipping_method_id, :payment_method_id, :source_id, :source_type
+    :shipping_address_id, :shipping_method_id, :payment_method_id, :source_id, :source_type, :product_id
 
   include Intervalable
 

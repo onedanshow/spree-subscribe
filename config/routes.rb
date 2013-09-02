@@ -5,9 +5,9 @@ Spree::Core::Engine.routes.draw do
         get :search
       end
     end
-    resources :subscriptions, :except => [:new,:create]
   end
 
+  resources :subscriptions, :except => [:new]
   resources :subscriptions, :only => [:destroy]
 
 end
