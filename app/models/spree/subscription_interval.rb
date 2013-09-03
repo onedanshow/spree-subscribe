@@ -9,4 +9,5 @@ class Spree::SubscriptionInterval < ActiveRecord::Base
     class_name: 'Spree::SubscriptionIntervalProduct'
   has_many :products,
     through: :spree_subscription_interval_products
+
 end

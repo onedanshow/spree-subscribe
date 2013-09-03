@@ -6,6 +6,9 @@ $(document).ready(function() {
       value: data.id,
       text: data.name
     }));
+    $('#subscriptions_active_1').prop('checked', true);
+    $('#subscriptions_interval_id').attr("disabled", false);
+    $('#subscriptions_interval_id > option[value=' + data.id + ' ]').prop('selected', true);
   }
 
   var removeSubscriptionForm = function(){
@@ -31,20 +34,12 @@ $(document).ready(function() {
     $('#product-price .price').text(price);
   };
 
-/*  $('#subscriptions_interval_id').on('change', function(e) { 
-    price = $(e.target).find('option:selected').data('subscribed-price');
-    assignPrice(price);
-  });
-*/
 
   $(':radio').click(function(e) {
     var oneTime = (e.currentTarget.value == 0);
 
     $('#subscriptions_interval_id').attr("disabled", oneTime);
 
-//    price = oneTime ? regularPrice : $('#subscriptions_interval_id option:selected').data('subscribed-price');
-
-//    assignPrice(price);
   });
 
   $('#client_new_subscription_interval_link').on('click', function(e){
