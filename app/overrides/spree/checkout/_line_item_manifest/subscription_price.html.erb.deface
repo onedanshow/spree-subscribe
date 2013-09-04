@@ -1,0 +1,7 @@
+<!-- replace_contents ".item-price" -->
+<% if item.line_item.subscription %>
+  <%= money item.line_item.subscribed_price %>
+<% else %>
+  <%= display_price(item.variant) %>
+<% end %>
+

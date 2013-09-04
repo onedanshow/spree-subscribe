@@ -32,3 +32,11 @@
     width: 50px;
   }
 }
+
+#shipping_method table.stock-contents tbody tr td.item-name {
+  text-align: center;
+  span.subscription_interval {
+    font-size: 11px;
+    color: #00adee;
+  }
+}

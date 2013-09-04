@@ -39,9 +39,9 @@ $(document).ready(function() {
     $('#add-to-cart-button').attr('disabled', false);
   }
 
-
   $(':radio').click(function(e) {
     var oneTime = (e.currentTarget.value == 0);
+
     $('#subscriptions_interval_id').attr("disabled", oneTime);
     var popup = ($('#subscriptions_interval_id option').length == 1 && !oneTime);
     showPopup(popup);
