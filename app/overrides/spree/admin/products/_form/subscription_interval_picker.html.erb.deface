@@ -1,10 +1,14 @@
 <!-- insert_before "[data-hook='admin_product_form_meta']" -->
-<div class="twelve columns alpha omega">
-  <%= f.field_container :subscription_interval_ids do %>
-    <%= f.label :subscription_interval_ids, t(:intervals, :scope => :subscribe) %><br />
-    <%= f.hidden_field :subscription_interval_ids, :value => @product.subscription_interval_ids.join(',') %>
-  <% end %>
+<div id="subscriptions_container" class="twelve columns alpha omega">
+    <%= label_tag :intervals, t(:intervals, :scope => :subscribe) %><br />
+    <%= text_field_tag :intervals, @product.subscription_interval_ids.join(',') %>
+    <div id='interval_products' >
+      <%= f.fields_for :spree_subscription_interval_products do |interval| %>
+      <%= render 'interval_fields', f: interval %>
+      <% end %>
+    </div>
 </div>
+
 
 <script>
   Spree.routes.interval_search = "<%= spree.search_admin_subscription_intervals_path(:format => 'json') %>";

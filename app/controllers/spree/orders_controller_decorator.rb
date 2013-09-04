@@ -25,9 +25,8 @@ Spree::OrdersController.class_eval do
     interval = Spree::SubscriptionInterval.find(interval_id)
 
     # DD: set subscribed price
-    if line_item.variant.subscribed_price.present?
-      line_item.price = line_item.variant.subscribed_price
-    end
+    subscribed_price = line_item.variant.subscribed_price(interval_id)
+    line_item.price = subscribed_price if subscribed_price
 
     # DD: create subscription
     if line_item.subscription
