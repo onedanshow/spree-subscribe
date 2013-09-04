@@ -9,6 +9,7 @@ Spree::Core::Engine.routes.draw do
   end
 
 
-  resources :subscriptions, :only => [:destroy, :create]
+  resources :subscriptions, :only => [:destroy]
 
+  post '/client_subscription_intervals', to: 'client_subscription_intervals#create'
 end
