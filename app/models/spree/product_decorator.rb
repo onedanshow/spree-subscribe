@@ -17,6 +17,6 @@ Spree::Product.class_eval do
   end
 
   def subscribed_name(id)
-    subscription_intervals.find(id).name
+    subscription_intervals_products.find(id).name
   end
 end
