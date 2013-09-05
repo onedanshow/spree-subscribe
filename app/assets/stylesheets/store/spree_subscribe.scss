@@ -27,9 +27,14 @@
     border-radius: 3px 3px 3px 3px;
     color: #5498DA;
     font-size: 90%;
-    margin: 7px 0;
+    margin: 10px;
     padding: 7px 10px;
     width: 50px;
+  }
+
+  span {
+    color: #00ADEE;
+    font-weight: bold;
   }
 }
 
@@ -39,4 +44,8 @@
     font-size: 11px;
     color: #00adee;
   }
+}
+
+.field_with_error {
+  box-shadow: 0 0 4px red;
 }
