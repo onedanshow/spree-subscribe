@@ -1,8 +1,12 @@
 $(document).ready(function() {
 
+  var isValid = function(field){
+    return (field.val().length > 0);
+  }
+
   $('.subscription-form').dialog({
     autoOpen: false,
-    height: 250,
+    height: 190,
     width: 250,
     modal: true,
     buttons: {
@@ -11,18 +15,22 @@ $(document).ready(function() {
         times = $('#subscription_interval_times');
         unit = $('#subscription_interval_time_unit option:selected');
 
-        new_interval.subscription_interval = {
-          name: times.val() + ' ' + unit.text(),
-          times: times.val(),
-          time_unit: unit.val(),
-          product_id: $('#product_id').val()
-        };
+        if(isValid(times)) {
+          new_interval.subscription_interval = {
+            name: times.val() + ' ' + unit.text(),
+            times: times.val(),
+            time_unit: unit.val(),
+            product_id: $('#product_id').val()
+          };
 
-        $.post('/client_subscription_intervals', new_interval)
+          $.post('/client_subscription_intervals', new_interval)
           .done(function(data) {
             addToDropdown(data);
           });
-        $(this).dialog('close');
+          $(this).dialog('close');
+        } else {
+          times.addClass('field_with_error');
+        }
       },
       Cancelar: function() {
         $(this).dialog('close');
@@ -30,7 +38,8 @@ $(document).ready(function() {
     },
 
     close: function() {
-      $('#subscription_interval_times').val('');
+      times.val('');
+      times.removeClass('field_with_error');
     }
   });
 
@@ -47,7 +56,7 @@ $(document).ready(function() {
     var oneTime = (e.currentTarget.value == 0);
 
     $('#subscriptions_interval_id').attr('disabled', oneTime);
-    var popup = ($('#subscriptions_interval_id option').length == 1 && !oneTime);
+    var popup = (e.currentTarget.name == 'subscriptions[active]' && $('#subscriptions_interval_id option').length == 1 && !oneTime);
     showPopup(popup);
   });
 
@@ -55,6 +64,7 @@ $(document).ready(function() {
     $('#add-to-cart-button').attr('disabled', popup);
     if(popup) {
       $('.subscription-form').dialog('open');
+      $('.ui-dialog-titlebar').remove();
     }
   };
 
