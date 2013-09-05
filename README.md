@@ -45,3 +45,9 @@ Be sure to bundle your dependencies and then create a dummy test app for the spe
     $ bundle exec rspec spec
 
 Copyright (c) 2013 Daniel Dixon, released under the New BSD License
+
+
+Responsible Disclosure of Security Issues
+-------
+
+If you find a security issue with this extension, please contact me directly (code@danieldixon.com).  Do NOT post it publicly to the GitHub issues for this repo.  I will be happy to work with you to resolve the issue.  For further information, please see: http://confreaks.com/videos/2430-railsconf2013-security-is-hard-but-we-cant-go-shopping
