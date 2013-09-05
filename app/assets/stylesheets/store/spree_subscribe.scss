@@ -19,6 +19,20 @@
   }
 }
 
+.subscription-form {
+  display: none;
+
+  input {
+    border: 1px solid #CEE1F4;
+    border-radius: 3px 3px 3px 3px;
+    color: #5498DA;
+    font-size: 90%;
+    margin: 7px 0;
+    padding: 7px 10px;
+    width: 50px;
+  }
+}
+
 #shipping_method table.stock-contents tbody tr td.item-name {
   text-align: center;
   span.subscription_interval {

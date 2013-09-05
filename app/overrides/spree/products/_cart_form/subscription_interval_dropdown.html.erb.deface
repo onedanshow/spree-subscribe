@@ -7,5 +7,12 @@
   <div>
     <%= radio_button_tag "subscriptions[active]", 1 %> Deliver every
     <%- options = @product.subscription_intervals.collect{|i| [i.name,i.id, {'data-subscribed-price' => money(@product.subscribed_price(i.id))} ] } %>
+    <%- options << ['personalizado', '-1', {'data-subscribed-price' => '0.0'} ] %>
     <%= select_tag "subscriptions[interval_id]", options_for_select(options), disabled: true %>
+  </div>
+
+  <div id='new_subscription_form' class='subscription-form'>
+    <span>Crea tu propio periodo de subscripcion</span><br />
+    <input type='number' id='subscription_interval_times' class='interval' >
+    <%= select_tag 'subscription_interval[time_unit]', options_for_select( Spree::SubscriptionInterval::UNITS.invert.to_a) %><br />
   </div>
