@@ -3,6 +3,7 @@
 
 en:
   subscribe:
+    create_new_interval: Create your own interval
     users_show_title: My Subscriptions
     no_subscriptions_available: You do not have any subscriptions setup.
     product: Product
@@ -25,6 +26,7 @@ en:
     total: Order Total
     one_time_purchase: One-Time Purchase
     subscription_purchase: 'Delivery Every:'
+    custom: Custom
   intervals:
     new: New Subscription Interval
     edit: Edit Subscription Interval

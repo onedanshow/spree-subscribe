@@ -1,0 +1,36 @@
+es-MX:
+  spree:
+    intervals:
+      back_to_intervals_list: Regresar al Listado de Intervalos
+      edit: Editar Intervalo
+      name: Nombre
+      new: Nuevo Intervalo
+      time: Re-ordenar cada
+    new_subscription_interval: Nuevo Intervalo
+    subscribe:
+      custom: Personalizado
+      create_new_interval: Crea tu propio intervalo
+      are_you_sure_suspend: ¿Estás seguro de suspender la subscripción?
+      back_to_list: Regresar a subscripciones
+      edit: Editar subscripción
+      interval: Entregar cada
+      intervals: Intervalos de subscripción
+      listing_subscriptions: Listado de Subscripciones
+      no_subscriptions_available: No tienes ninguna subscripción
+      none_found: No se encontraron subscripciones
+      number: Número de Orden
+      one_time_purchase: Compra única
+      price: Precio
+      product: Producto
+      reorder_on: Re-Ordenar en
+      resume_subscription: Continuar
+      state: Estado
+      subscribable: ¿Suscribible?
+      subscribed_price: Precio de la subscripción
+      subscription_purchase: 'Entregar cada:'
+      suspend_subscription: Suspender
+      total: Total de la Orde
+      user: Usuario
+      users_show_title: Mis Subscripciones
+    subscriptions_config_label: Subscripciones
+    subscription_intervals: Periodos de Subscripción

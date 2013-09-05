@@ -2,17 +2,17 @@
   <%- #DD: when supporting multiple variants at a time: variant_id = @product.has_variants? ? @product.variants.first.id : @product.master.id %>
   <div>
     <%= hidden_field_tag 'product_id', @product.id %>
-    <%= radio_button_tag "subscriptions[active]", 0, true %> One-time Purchase
+    <%= radio_button_tag "subscriptions[active]", 0, true %><%= Spree.t('one_time_purchase', scope: 'subscribe') %>
   </div>
   <div>
-    <%= radio_button_tag "subscriptions[active]", 1 %> Deliver every
+    <%= radio_button_tag "subscriptions[active]", 1 %><%= Spree.t('subscription_purchase', scope: 'subscribe') %>
     <%- options = @product.subscription_intervals.collect{|i| [i.name,i.id, {'data-subscribed-price' => money(@product.subscribed_price(i.id))} ] } %>
-    <%- options << ['personalizado', '-1', {'data-subscribed-price' => '0.0'} ] %>
+    <%- options << [Spree.t('custom', scope: 'subscribe'), '-1', {'data-subscribed-price' => '0.0'} ] %>
     <%= select_tag "subscriptions[interval_id]", options_for_select(options), disabled: true %>
   </div>
 
   <div id='new_subscription_form' class='subscription-form'>
-    <span>Crea tu propio periodo de subscripcion</span><br />
+    <span><%= Spree.t('create_new_interval', scope: 'subscribe')%></span><br />
     <input type='number' id='subscription_interval_times' class='interval' >
     <%= select_tag 'subscription_interval[time_unit]', options_for_select( Spree::SubscriptionInterval::UNITS.invert.to_a) %><br />
   </div>
