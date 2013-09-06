@@ -36,6 +36,9 @@ class Spree::Subscription < ActiveRecord::Base
     after_transition :on => :resume, :do => :check_reorder_date
   end
 
+  def user_email
+    user && user.email || line_item.order.email
+  end
   # DD: TODO pull out into a ReorderBuilding someday
   def reorder
     raise false unless self.state == 'active'
@@ -55,7 +58,7 @@ class Spree::Subscription < ActiveRecord::Base
         bill_address: self.billing_address.clone,
         ship_address: self.shipping_address.clone,
         subscription_id: self.id,
-        email: self.user.email
+        email: self.user_email
       )
     self.new_order.user_id = self.user_id
 

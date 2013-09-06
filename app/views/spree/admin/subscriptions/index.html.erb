@@ -40,7 +40,7 @@
         <td class="subscription-product">
           <span class="product-name"><%= link_to sub.line_item.order.number, edit_admin_order_path(sub.line_item.order.number) %></span>
         </td>
-        <td class="subscription-user"><%= sub.user.email %></td>
+        <td class="subscription-user"><%= sub.user_email %></td>
         <td class="subscription-price"><%= money  sub.line_item.order.total %></td>
         <td class="subscription-interval"><%= sub.time_title %></td>
         <td class="subscription-reorder-date">
