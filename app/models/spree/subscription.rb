@@ -20,6 +20,7 @@ class Spree::Subscription < ActiveRecord::Base
   has_many :reorders, :class_name => "Spree::Order"
 
   scope :active, where(:state => 'active')
+  scope :post_cart, where("state != ?", "cart")
 
   state_machine :state, :initial => 'cart' do
     event :suspend do
