@@ -8,10 +8,10 @@ es-MX:
       time: Re-ordenar cada
     new_subscription_interval: Nuevo Intervalo
     subscribe:
-      custom: Personalizado
-      create_new_interval: Crea tu propio intervalo
       are_you_sure_suspend: ¿Estás seguro de suspender la subscripción?
       back_to_list: Regresar a subscripciones
+      custom: Personalizado
+      create_new_interval: Crea tu propio intervalo
       edit: Editar subscripción
       interval: Entregar cada
       intervals: Intervalos de subscripción
@@ -27,6 +27,7 @@ es-MX:
       state: Estado
       subscribable: ¿Suscribible?
       subscribed_price: Precio de la subscripción
+      subscription_reoder_every: "Subscripción: Reoderdenar cada "
       subscription_purchase: 'Entregar cada:'
       suspend_subscription: Suspender
       total: Total de la Orde

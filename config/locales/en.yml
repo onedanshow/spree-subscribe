@@ -27,6 +27,7 @@ en:
     one_time_purchase: One-Time Purchase
     subscription_purchase: 'Delivery Every:'
     custom: Custom
+    subscription_reoder_every: 'Subscription: Reorder every '
   intervals:
     new: New Subscription Interval
     edit: Edit Subscription Interval
