@@ -13,7 +13,7 @@ Spree::Product.class_eval do
     id && interval = spree_subscription_interval_products.
       where(subscription_interval_id: id).
       first
-    interval ? interval.subscribed_price : price
+    interval && interval.subscribed_price || price
   end
 
   def subscribed_name(id)
