@@ -6,7 +6,7 @@ $(document).ready(function() {
 
   $('.subscription-form').dialog({
     autoOpen: false,
-    height: 190,
+    height: 200,
     width: 250,
     modal: true,
     buttons: {
@@ -38,8 +38,8 @@ $(document).ready(function() {
     },
 
     close: function() {
-      times.val('');
-      times.removeClass('field_with_error');
+      $('#subscription_interval_times').val('');
+      $('#subscription_interval_times').removeClass('field_with_error');
     }
   });
 
