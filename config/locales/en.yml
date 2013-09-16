@@ -33,7 +33,11 @@ en:
     back_to_intervals_list: Back to Subscription Intervals
     name: Display Name
     time: Reorders every
-
+    options:
+        day: day
+        week: week
+        month: month
+        year: year
   subscriptions_config_label: Subscriptions
   subscription_intervals: Subscription Intervals
   new_subscription_interval: New Subscription Interval

@@ -8,6 +8,11 @@ es:
     name: Nombre a mostrar
     new: Nuevo Periodo de Subscripción
     time: Re-ordenar cada
+  options:
+    day: día
+    week: semana
+    month: mes
+    year: año
   new_subscription_interval: Nuevo Periodo de Subscripción
   subscribe:
     are_you_sure_suspend: ¿Estás seguro de suspender la subscripción?

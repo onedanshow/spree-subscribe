@@ -15,6 +15,6 @@
     <div id='new_subscription_form' class='subscription-form'>
       <span><%= Spree.t('create_new_interval', scope: 'subscribe')%></span><br />
       <input type='number' id='subscription_interval_times' class='interval' >
-      <%= select_tag 'subscription_interval[time_unit]', options_for_select( Spree::SubscriptionInterval::UNITS.invert.to_a) %><br />
+      <%= select_tag 'subscription_interval[time_unit]', options_for_select( Spree::SubscriptionInterval.translated_interval) %><br />
     </div>
   <% end %>
