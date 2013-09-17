@@ -6,6 +6,11 @@ es-MX:
       name: Nombre
       new: Nuevo Intervalo
       time: Re-ordenar cada
+      options:
+        day: día
+        week: semana
+        month: mes
+        year: año
     new_subscription_interval: Nuevo Intervalo
     subscribe:
       custom: Personalizado

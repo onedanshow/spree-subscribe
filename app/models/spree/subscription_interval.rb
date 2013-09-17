@@ -10,4 +10,10 @@ class Spree::SubscriptionInterval < ActiveRecord::Base
   has_many :products,
     through: :spree_subscription_interval_products
 
+  def self.translated_interval
+    Spree::SubscriptionInterval::UNITS.map do |k, v|
+      [Spree.t(v, scope: 'intervals.options'), k]
+    end
+  end
+
 end
