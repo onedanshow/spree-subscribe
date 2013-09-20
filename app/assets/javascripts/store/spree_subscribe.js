@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
   var isValid = function(field){
-    return (field.val().length > 0);
+    return (field.val() > 0);
   }
 
   $('.subscription-form').dialog({
