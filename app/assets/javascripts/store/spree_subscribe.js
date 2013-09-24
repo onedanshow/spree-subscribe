@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
   var isValid = function(field){
-    return (field.val().length > 0);
+    return (field.val() > 0);
   }
 
   $('.subscription-form').dialog({
@@ -45,8 +45,11 @@ $(document).ready(function() {
 
   var addToDropdown = function(data){
     attributes = { value: data.id, text: data.name }
-    $('#subscriptions_interval_id')
-      .prepend($('<option>', attributes))
+    var interval = $('#subscriptions_interval_id')
+    if(interval.find('option[value=' + attributes.value + ']').length == 0) {
+      interval.prepend($('<option>', attributes));
+    }
+    interval
       .find('option[value=' + attributes.value + ' ]')
       .prop('selected', true);
     $('#add-to-cart-button').attr('disabled', false);
