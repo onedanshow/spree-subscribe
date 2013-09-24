@@ -26,7 +26,7 @@ module Intervalable
     end
 
     def time_title_translated
-      "#{times} #{I18n.t("intervals.options.#{time_unit_symbol}").pluralize(times).titleize}"
+      I18n.t("intervals.options.#{time_unit_symbol}", count: times)
     end
 
     # ex: 3.months

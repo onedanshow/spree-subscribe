@@ -9,10 +9,22 @@ en:
     name: Display Name
     time: Reorders every
     options:
-        day: day
-        week: week
-        month: month
-        year: year
+      day:
+        zero: day
+        one: 1 day
+        other: '%{count} days'
+      week:
+        zero: week
+        one: 1 week
+        other: '%{count} weeks'
+      month:
+        zero: month
+        one: 1 month
+        other: '%{count} months'
+      year:
+        zero: year
+        one: 1 year
+        other: '%{count} years'
   new_subscription_interval: New Subscription Interval
   subscribe:
     are_you_sure_suspend: Are you sure that you want to suspend this subscription?

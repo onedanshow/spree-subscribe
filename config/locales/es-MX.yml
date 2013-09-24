@@ -1,16 +1,28 @@
 es-MX:
   intervals:
-    back_to_intervals_list: Regresar al Listado de Intervalos
-    edit: Editar Intervalo
+    back_to_intervals_list: Regresar al listado de intervalos
+    edit: Editar intervalo
     name: Nombre
-    new: Nuevo Intervalo
+    new: Nuevo intervalo
     time: Re-ordenar cada
     options:
-      day: día
-      week: semana
-      month: mes
-      year: año
-  new_subscription_interval: Nuevo Intervalo
+      day:
+        zero: día
+        one: 1 día
+        other: '%{count} días'
+      week:
+        zero: semana
+        one: 1 semana
+        other: '%{count} semanas'
+      month:
+        zero: mes
+        one: 1 mes
+        other: '%{count} meses'
+      year:
+        zero: año
+        one: 1 año
+        other: '%{count} años'
+  new_subscription_interval: Nuevo intervalo
   subscribe:
     are_you_sure_suspend: ¿Estás seguro de suspender la subscripción?
     back_to_list: Regresar a subscripciones
@@ -19,10 +31,10 @@ es-MX:
     edit: Editar subscripción
     interval: Entregar cada
     intervals: Intervalos de subscripción
-    listing_subscriptions: Listado de Subscripciones
+    listing_subscriptions: Listado de subscripciones
     no_subscriptions_available: No tienes ninguna subscripción
     none_found: No se encontraron subscripciones
-    number: Número de Orden
+    number: Número de orden
     one_time_purchase: Compra única
     price: Precio
     product: Producto
@@ -34,8 +46,8 @@ es-MX:
     subscription_purchase: 'Entregar cada:'
     subscription_reoder_every: 'Subscripción: Reordenar cada %{interval}'
     suspend_subscription: Suspender
-    total: Total de la Orden
+    total: Total de la orden
     user: Usuario
-    users_show_title: Mis Subscripciones
-  subscription_intervals: Periodos de Subscripción
+    users_show_title: Mis subscripciones
+  subscription_intervals: Periodos de subscripción
   subscriptions_config_label: Subscripciones
