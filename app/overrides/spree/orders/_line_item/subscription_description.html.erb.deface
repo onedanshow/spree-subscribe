@@ -1,4 +1,4 @@
 <!-- insert_bottom "[data-hook='cart_item_description']" -->
 <% if line_item.subscription %>
-  <div>Subscription: Reorder every <%= line_item.subscription.time_title %></div>
+  <div><%= t('subscribe.subscription_reoder_every', interval: line_item.subscription.time_title_translated) %></div>
 <% end %>

@@ -2,31 +2,6 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  subscribe:
-    create_new_interval: Create your own interval
-    users_show_title: My Subscriptions
-    no_subscriptions_available: You do not have any subscriptions setup.
-    product: Product
-    user: User
-    price: Price
-    interval: Delivers Every
-    reorder_on: Reorders on
-    state: Status
-    suspend_subscription: Suspend
-    are_you_sure_suspend: Are you sure that you want to suspend this subscription?
-    resume_subscription: Resume
-    subscribable: Subscribable?
-    subscribed_price: Subscription Price
-    intervals: Subscription Intervals
-    listing_subscriptions: Listing Subscriptions
-    edit: Edit Subscription
-    back_to_list: Back to Subscriptions
-    none_found: No subscriptions were found
-    number: Order Number
-    total: Order Total
-    one_time_purchase: One-Time Purchase
-    subscription_purchase: 'Delivery Every:'
-    custom: Custom
   intervals:
     new: New Subscription Interval
     edit: Edit Subscription Interval
@@ -34,10 +9,48 @@ en:
     name: Display Name
     time: Reorders every
     options:
-        day: day
-        week: week
-        month: month
-        year: year
-  subscriptions_config_label: Subscriptions
-  subscription_intervals: Subscription Intervals
+      day:
+        zero: day
+        one: 1 day
+        other: '%{count} days'
+      week:
+        zero: week
+        one: 1 week
+        other: '%{count} weeks'
+      month:
+        zero: month
+        one: 1 month
+        other: '%{count} months'
+      year:
+        zero: year
+        one: 1 year
+        other: '%{count} years'
   new_subscription_interval: New Subscription Interval
+  subscribe:
+    are_you_sure_suspend: Are you sure that you want to suspend this subscription?
+    back_to_list: Back to Subscriptions
+    create_new_interval: Create your own interval
+    custom: Custom
+    edit: Edit Subscription
+    interval: Delivers Every
+    intervals: Subscription Intervals
+    listing_subscriptions: Listing Subscriptions
+    no_subscriptions_available: You do not have any subscriptions setup.
+    none_found: No subscriptions were found
+    number: Order Number
+    one_time_purchase: One-Time Purchase
+    price: Price
+    product: Product
+    reorder_on: Reorders on
+    resume_subscription: Resume
+    state: Status
+    subscribable: Subscribable?
+    subscribed_price: Subscription Price
+    subscription_purchase: 'Delivery Every:'
+    subscription_reoder_every: 'Subscription: Reorder every %{interval}'
+    suspend_subscription: Suspend
+    total: Order Total
+    user: User
+    users_show_title: My Subscriptions
+  subscription_intervals: Subscription Intervals
+  subscriptions_config_label: Subscriptions

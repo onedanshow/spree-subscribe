@@ -12,7 +12,7 @@ class Spree::SubscriptionInterval < ActiveRecord::Base
 
   def self.translated_interval
     Spree::SubscriptionInterval::UNITS.map do |k, v|
-      [Spree.t(v, scope: 'intervals.options'), k]
+      [I18n.t(v, scope: 'intervals.options', count: 0), k]
     end
   end
 
