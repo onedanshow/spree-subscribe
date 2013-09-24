@@ -54,3 +54,10 @@ es:
     users_show_title: Mis subscripciones
   subscription_intervals: Periodos de subscripción
   subscriptions_config_label: Subscripciones
+  order_mailer:
+    reorder_email:
+      subject: 'recordatorio de pago de subscripción %{order_number}'
+      body: |
+        'Su subscripción esta apunto de expirar.'
+        'Por favor ingrese al sitio ClubGuaf para realizar su pago'
+        'El número de orden es %{order_number}'

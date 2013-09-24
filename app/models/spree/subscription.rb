@@ -40,6 +40,7 @@ class Spree::Subscription < ActiveRecord::Base
     user && user.email || line_item.order.email
   end
   # DD: TODO pull out into a ReorderBuilding someday
+  # TODO fb, revert the changes after conekta support recurrent payment
   def reorder
     raise false unless self.state == 'active'
 
@@ -47,8 +48,7 @@ class Spree::Subscription < ActiveRecord::Base
     self.new_order.next && #-> delivery
     select_shipping &&
     add_payment &&
-    confirm_reorder &&
-    complete_reorder &&
+    reorder_reminder &&
     calculate_reorder_date!
   end
 
@@ -61,6 +61,8 @@ class Spree::Subscription < ActiveRecord::Base
         email: self.user_email
       )
     self.new_order.user_id = self.user_id
+    self.new_order.created_by = self.user
+    self.new_order.save
 
     self.add_subscribed_line_item
     # DD: make it work with spree_multi_domain
@@ -104,6 +106,11 @@ class Spree::Subscription < ActiveRecord::Base
   def complete_reorder
     self.new_order.update!
     self.new_order.next && self.new_order.save # -> complete
+  end
+
+  #TODO fb, remove this when conekta support recurrent payments
+  def reorder_reminder
+    self.new_order.deliver_reorder_confirmation_email
   end
 
   def calculate_reorder_date!
