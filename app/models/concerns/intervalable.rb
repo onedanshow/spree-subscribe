@@ -25,6 +25,10 @@ module Intervalable
       "#{times} #{time_unit_symbol.to_s.pluralize(times).titleize}"
     end
 
+    def time_title_translated
+      "#{times} #{I18n.t("intervals.options.#{time_unit_symbol}").pluralize(times).titleize}"
+    end
+
     # ex: 3.months
     def time
       times.try( time_unit_symbol )
