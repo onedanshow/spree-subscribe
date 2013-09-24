@@ -4,9 +4,9 @@
 es:
   intervals:
     back_to_intervals_list: Regresar a periodos de subscripción
-    edit: Editar Periodo de subscripción
+    edit: Editar periodo de subscripción
     name: Nombre a mostrar
-    new: Nuevo Periodo de subscripción
+    new: Nuevo periodo de subscripción
     time: Re-ordenar cada
     options:
       day:
