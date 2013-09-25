@@ -14,7 +14,14 @@
 
     <div id='new_subscription_form' class='subscription-form'>
       <span><%= t('create_new_interval', scope: 'subscribe') %></span><br />
-      <input type='number' id='subscription_interval_times' min='1' value='1' class='interval' >
+      <input type='number' id='subscription_interval_times' min='15' value='15' class='interval' >
       <%= select_tag 'subscription_interval[time_unit]', options_for_select(Spree::SubscriptionInterval.translated_interval) %><br />
     </div>
   <% end %>
+
+  <script>
+    $(document).ready(function(){
+      intervalValidation = new subscribeApp.CustomInterval();
+      intervalValidation.setup();
+    });
+  </script>
