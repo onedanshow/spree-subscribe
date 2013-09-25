@@ -54,3 +54,10 @@ en:
     users_show_title: My Subscriptions
   subscription_intervals: Subscription Intervals
   subscriptions_config_label: Subscriptions
+  order_mailer:
+    reorder_email:
+      subject: 'reminder subscription payment %{order_number}'
+      body: |
+        'Your subscription will expire soon.'
+        'Please complete your payment to continue receiving the products'
+        'Your order number is %{order_number}'
