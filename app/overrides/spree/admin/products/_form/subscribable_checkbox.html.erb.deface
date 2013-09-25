@@ -1,20 +1,12 @@
-<!-- insert_bottom "[data-hook='admin_product_form_right']" -->
-<div class="alpha two columns">
-  <%= f.field_container :subscribable, :class => ['checkbox'] do %>
-    <%= f.label :subscribable, t(:subscribable, :scope => :subscribe) %>
-    <%= f.check_box :subscribable %>
+<!-- insert_before "[data-hook='admin_product_form_meta']" -->
+<div class="alpha three columns">
+  <%= f.field_container :subscribable do %>
+    <%= f.label :subscribable, t(:subscribable, :scope => :subscribe), class: "two columns alpha hand" %>
+    <%= f.check_box :subscribable, class: "one column alpha hand" %>
     <%= f.error_message_on :subscribable %>
   <% end %>
 </div>
 
-<% unless @product.has_variants? %>
-<div class="omega two columns">
-  <%= f.field_container :subscribed_price do %>
-    <%= f.label :subscribed_price, t(:subscribed_price, :scope => :subscribe) %>
-    <%= f.text_field :subscribed_price, :value => number_to_currency(@product.subscribed_price, :unit => '') %>
-    <%= f.error_message_on :subscribed_price %>
-  <% end %>
-</div>
-<% end %>
+
 
 <div class="clear"></div>

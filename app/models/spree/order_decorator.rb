@@ -13,6 +13,15 @@ Spree::Order.class_eval do
     end
   end
 
+  def deliver_reorder_confirmation_email
+    begin
+      Spree::OrderMailer.reorder_email(self).deliver
+    rescue Exception => e
+      logger.error("#{e.class.name}: #{e.message}")
+      logger.error(e.backtrace * "\n")
+    end
+  end
+
   # DD: not unit tested
   def shipment_for_variant(variant)
     shipments.select{|s| s.include?(variant) }.first
@@ -20,7 +29,8 @@ Spree::Order.class_eval do
 
   # DD: not unit tested
   def shipping_method_for_variant(variant)
-    shipment_for_variant(variant).shipping_method
+    shipment = shipment_for_variant(variant)
+    shipment && shipment.shipping_method
   end
 
 end

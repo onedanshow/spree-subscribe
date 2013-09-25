@@ -5,9 +5,11 @@ Spree::Core::Engine.routes.draw do
         get :search
       end
     end
-    resources :subscriptions, :except => [:new,:create]
+    resources :subscriptions, :except => [:new, :create]
   end
+
 
   resources :subscriptions, :only => [:destroy]
 
+  post '/client_subscription_intervals', to: 'client_subscription_intervals#create'
 end

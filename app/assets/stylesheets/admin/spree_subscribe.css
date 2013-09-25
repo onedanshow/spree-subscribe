@@ -1,0 +1,19 @@
+.hidden {
+  display: none !important;
+}
+
+.subscriptionTag {
+  border: 1px solid #CEE1F4;
+  border-radius: 3px 3px 3px 3px;
+  box-shadow: 1px 1px 3px;
+  margin: 10px 10px 0 0 !important;
+  padding: 8px;
+}
+
+.subscriptionPrice {
+ width: 80px !important;
+}
+
+.hand {
+  cursor: pointer;
+}

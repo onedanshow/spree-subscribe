@@ -1,0 +1,9 @@
+<!-- replace_contents '.item-name' -->
+<%= item.variant.name %>
+<%= render 'spree/orders/cart_description', variant: item.variant %>
+<br/>
+<% if item.line_item.subscription %>
+  <span class='subscription_interval'>
+    ( <%= "#{t(:interval, scope: :subscribe)} : #{item.line_item.subscribed_name}" %> )
+  </span>
+<% end %>

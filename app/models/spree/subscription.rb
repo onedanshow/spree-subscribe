@@ -2,7 +2,7 @@ require 'concerns/intervalable'
 
 class Spree::Subscription < ActiveRecord::Base
   attr_accessible :reorder_on, :user_id, :times, :time_unit, :line_item_id, :billing_address_id, :state,
-    :shipping_address_id, :shipping_method_id, :payment_method_id, :source_id, :source_type
+    :shipping_address_id, :shipping_method_id, :payment_method_id, :source_id, :source_type, :product_id
 
   include Intervalable
 
@@ -36,34 +36,41 @@ class Spree::Subscription < ActiveRecord::Base
     after_transition :on => :resume, :do => :check_reorder_date
   end
 
+  def user_email
+    user && user.email || line_item.order.email
+  end
   # DD: TODO pull out into a ReorderBuilding someday
+  # TODO fb, revert the changes after conekta support recurrent payment
   def reorder
     raise false unless self.state == 'active'
 
     create_reorder &&
-    add_subscribed_line_item &&
+    self.new_order.next && #-> delivery
     select_shipping &&
     add_payment &&
-    confirm_reorder &&
-    complete_reorder &&
+    reorder_reminder &&
     calculate_reorder_date!
   end
 
   def create_reorder
+
     self.new_order = Spree::Order.create(
         bill_address: self.billing_address.clone,
         ship_address: self.shipping_address.clone,
         subscription_id: self.id,
-        email: self.user.email
+        email: self.user_email
       )
     self.new_order.user_id = self.user_id
+    self.new_order.created_by = self.user
+    self.new_order.save
 
+    self.add_subscribed_line_item
     # DD: make it work with spree_multi_domain
     if self.new_order.respond_to?(:store_id)
       self.new_order.store_id = self.line_item.order.store_id
     end
 
-    self.new_order.next # -> address
+    self.new_order.next #-> address
   end
 
   def add_subscribed_line_item
@@ -72,8 +79,6 @@ class Spree::Subscription < ActiveRecord::Base
     line_item = self.new_order.contents.add( variant, self.line_item.quantity )
     line_item.price = self.line_item.price
     line_item.save!
-
-    self.new_order.next # -> delivery
   end
 
   def select_shipping
@@ -103,10 +108,15 @@ class Spree::Subscription < ActiveRecord::Base
     self.new_order.next && self.new_order.save # -> complete
   end
 
+  #TODO fb, remove this when conekta support recurrent payments
+  def reorder_reminder
+    self.new_order.deliver_reorder_confirmation_email
+  end
+
   def calculate_reorder_date!
     self.reorder_on ||= Date.today
     self.reorder_on += self.time
-    save
+    self.save
   end
 
   private
@@ -124,10 +134,11 @@ class Spree::Subscription < ActiveRecord::Base
     order = self.line_item.order
     # DD: TODO: set quantity?
     calculate_reorder_date!
+    shipping_method = order.shipping_method_for_variant( self.line_item.variant )
     update_attributes(
       :billing_address_id => order.bill_address_id,
       :shipping_address_id => order.ship_address_id,
-      :shipping_method_id => order.shipping_method_for_variant( self.line_item.variant ).id,
+      :shipping_method_id => shipping_method && shipping_method.id,
       :payment_method_id => order.payments.first.payment_method_id,
       :source_id => order.payments.first.source_id,
       :source_type => order.payments.first.source_type,

@@ -1,0 +1,63 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+es:
+  intervals:
+    back_to_intervals_list: Regresar a periodos de subscripción
+    edit: Editar periodo de subscripción
+    name: Nombre a mostrar
+    new: Nuevo periodo de subscripción
+    time: Re-ordenar cada
+    options:
+      day:
+        zero: día
+        one: 1 día
+        other: '%{count} días'
+      week:
+        zero: semana
+        one: 1 semana
+        other: '%{count} semanas'
+      month:
+        zero: mes
+        one: 1 mes
+        other: '%{count} meses'
+      year:
+        zero: año
+        one: 1 año
+        other: '%{count} años'
+  new_subscription_interval: Nuevo periodo de subscripción
+  subscribe:
+    are_you_sure_suspend: ¿Estás seguro de suspender la subscripción?
+    back_to_list: Regresar a subscripciones
+    create_new_interval: Crea tu propio intervalo
+    custom: Personalizado
+    edit: Editar subscripción
+    interval: Entregar cada
+    intervals: Intervalos de subscripción
+    listing_subscriptions: Listado de subscripciones
+    no_subscriptions_available: No tienes ninguna subscripción
+    none_found: No se encontraron subscripciones
+    number: Número de orden
+    one_time_purchase: Compra única
+    price: Precio
+    product: Producto
+    reorder_on: Re-Ordenar en
+    resume_subscription: Continuar
+    state: Estado
+    subscribable: ¿Suscribible?
+    subscribed_price: Precio de la subscripción
+    subscription_purchase: 'Entregar cada:'
+    subscription_reorder_every: 'Subscripción: Reordenar cada %{interval}'
+    suspend_subscription: Suspender
+    total: Total de la Orden
+    user: Usuario
+    users_show_title: Mis subscripciones
+  subscription_intervals: Periodos de subscripción
+  subscriptions_config_label: Subscripciones
+  order_mailer:
+    reorder_email:
+      subject: 'recordatorio de pago de subscripción %{order_number}'
+      body: |
+        'Su subscripción esta apunto de expirar.'
+        'Por favor ingrese al sitio ClubGuaf para realizar su pago'
+        'El número de orden es %{order_number}'
