@@ -141,7 +141,7 @@ describe Spree::Subscription do
       @sub.reorder.should be_true
 
       order = @sub.reorders.first
-      order.state.should eq("confirm")
+      order.state.should eq("payment")
       #order.completed?.should be
     end
 
@@ -150,7 +150,7 @@ describe Spree::Subscription do
       @sub.reorder
 
       order = @sub.reorders.first
-      order.state.should eq("confirm")
+      order.state.should eq("payment")
     end
   end
 
