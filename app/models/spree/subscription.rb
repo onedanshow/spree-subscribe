@@ -41,7 +41,6 @@ class Spree::Subscription < ActiveRecord::Base
     raise false unless self.state == 'active'
 
     create_reorder &&
-    add_subscribed_line_item &&
     select_shipping &&
     add_payment &&
     confirm_reorder &&
@@ -62,17 +61,14 @@ class Spree::Subscription < ActiveRecord::Base
     if self.new_order.respond_to?(:store_id)
       self.new_order.store_id = self.line_item.order.store_id
     end
-
-    self.new_order.next # -> address
-  end
-
-  def add_subscribed_line_item
+    
     variant = Spree::Variant.find(self.line_item.variant_id)
 
     line_item = self.new_order.contents.add( variant, self.line_item.quantity )
     line_item.price = self.line_item.price
     line_item.save!
 
+    self.new_order.next # -> address
     self.new_order.next # -> delivery
   end
 
