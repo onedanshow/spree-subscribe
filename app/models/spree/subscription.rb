@@ -55,12 +55,15 @@ class Spree::Subscription < ActiveRecord::Base
       subscription_id: self.id,
       email: self.user.email
     )
-    self.new_order.user_id = self.user_id
+    self.new_order.user_id = self.user_id    
    
     # DD: make it work with spree_multi_domain
     if self.new_order.respond_to?(:store_id)
       self.new_order.store_id = self.line_item.order.store_id
     end
+    
+    # Persist changes to the new_order.  They are not set properly otherwise
+    self.new_order.save!
     
     variant = Spree::Variant.find(self.line_item.variant_id)
 
@@ -68,8 +71,7 @@ class Spree::Subscription < ActiveRecord::Base
     line_item.price = self.line_item.price
     line_item.save!
 
-    self.new_order.next # -> address
-    self.new_order.next # -> delivery
+    self.new_order.next && self.new_order.next # -> address -> delivery 
   end
 
   def select_shipping
@@ -89,11 +91,17 @@ class Spree::Subscription < ActiveRecord::Base
       payment.save!
   
       self.new_order.next # -> payment
+    else
+      true
     end
   end
 
   def confirm_reorder
-    self.new_order.next if self.new_order.has_step? 'confirm' # -> confirm
+    if self.new_order.has_step? 'confirm'
+      self.new_order.next # -> confirm
+    else
+      true
+    end
   end
 
   def complete_reorder
