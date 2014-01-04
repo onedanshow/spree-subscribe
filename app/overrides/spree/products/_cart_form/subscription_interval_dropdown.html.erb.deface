@@ -1,6 +1,6 @@
 <!-- insert_before '.add-to-cart' -->
 <% if @product.subscribable? && @product.subscription_intervals.any? %>
-  <%- #DD: when supporting multiple variants at a time: variant_id = @product.has_variants? ? @product.variants.first.id : @product.master.id %>
+  <%# DD: when supporting multiple variants at a time: variant_id = @product.has_variants? ? @product.variants.first.id : @product.master.id %>
   <div>
     <%= radio_button_tag "subscriptions[active]", 0, true %> One-time Purchase
   </div>
