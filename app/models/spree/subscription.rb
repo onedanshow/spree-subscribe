@@ -56,7 +56,7 @@ class Spree::Subscription < ActiveRecord::Base
       email: self.user.email
     )
     self.new_order.user_id = self.user_id
-
+   
     # DD: make it work with spree_multi_domain
     if self.new_order.respond_to?(:store_id)
       self.new_order.store_id = self.line_item.order.store_id
@@ -82,16 +82,18 @@ class Spree::Subscription < ActiveRecord::Base
   end
 
   def add_payment
-    payment = self.new_order.payments.build( :amount => self.new_order.item_total )
-    payment.source = self.source
-    payment.payment_method = self.payment_method
-    payment.save!
-
-    self.new_order.next # -> payment
+    if self.new_order.has_step? 'payment'
+      payment = self.new_order.payments.build( :amount => self.new_order.item_total )
+      payment.source = self.source
+      payment.payment_method = self.payment_method
+      payment.save!
+  
+      self.new_order.next # -> payment
+    end
   end
 
   def confirm_reorder
-    self.new_order.next # -> confirm
+    self.new_order.next if self.new_order.has_step? 'confirm' # -> confirm
   end
 
   def complete_reorder

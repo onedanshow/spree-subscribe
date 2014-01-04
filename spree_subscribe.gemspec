@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_subscribe'
-  s.version     = '0.1.2.beta'
+  s.version     = '0.1.3.beta'
   s.summary     = ''
   s.description = ''
   s.required_ruby_version = '>= 1.9.3'
