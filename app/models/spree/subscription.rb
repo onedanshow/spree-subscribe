@@ -22,6 +22,8 @@ class Spree::Subscription < ActiveRecord::Base
   scope :cancelled, -> { where(state: 'cancelled') }
   
   scope :current, -> { where(state: ['active', 'inactive']) }
+  
+  scope :due, -> { active.where("reorder_on <= ?", Date.today) }
 
   state_machine :state, :initial => 'cart' do
     event :suspend do
@@ -37,35 +39,43 @@ class Spree::Subscription < ActiveRecord::Base
     after_transition :on => :start, :do => :set_checkout_requirements
     after_transition :on => :resume, :do => :check_reorder_date
   end
+  
+  def self.reorder_due!
+    due.each(&:reorder)
+  end
 
   # DD: TODO pull out into a ReorderBuilding someday
   def reorder
-    raise false unless self.state == 'active'
-
-    create_reorder &&
-    add_subscribed_line_item &&
-    select_shipping &&
-    add_payment &&
-    confirm_reorder &&
-    complete_reorder &&
-    calculate_reorder_date!
+    raise false unless active?
+    
+    result = create_reorder &&
+      select_shipping &&
+      add_payment &&
+      confirm_reorder &&
+      complete_reorder &&
+      calculate_reorder_date!
+      
+    puts result ? " -> Next reorder date: #{self.reorder_on}" : " -> FAILED"
+    
+    result
   end
 
   def create_reorder
+    puts "[SPREE::SUBSCRIPTION] Reordering subscription: #{id}"
+    puts " -> creating order..."
+    
     self.new_order = Spree::Order.create(
-        bill_address: self.billing_address.clone,
-        ship_address: self.shipping_address.clone,
-        subscription_id: self.id,
-        email: self.user.email
-      )
-    self.new_order.user_id = self.user_id
+      bill_address: self.billing_address.clone,
+      ship_address: self.shipping_address.clone,
+      subscription_id: self.id,
+      email: self.user.email,
+      user_id: self.user_id
+    )
 
     # DD: make it work with spree_multi_domain
-    if self.new_order.respond_to?(:store_id)
-      self.new_order.store_id = self.line_item.order.store_id
-    end
-
-    self.new_order.next # -> address
+    self.new_order.store_id = self.line_item.order.store_id if self.new_order.respond_to?(:store_id)
+    
+    add_subscribed_line_item && progress # -> delivery
   end
 
   def add_subscribed_line_item
@@ -75,39 +85,45 @@ class Spree::Subscription < ActiveRecord::Base
     line_item.price = self.line_item.price
     line_item.save!
 
-    self.new_order.next # -> delivery
+    result = progress # -> delivery
   end
 
   def select_shipping
+    puts " -> selecting shipping rate..."
+    
     # DD: shipments are created when order state goes to "delivery"
     shipment = self.new_order.shipments.first # DD: there should be only one shipment
     rate = shipment.shipping_rates.first{|r| r.shipping_method.id == self.shipping_method.id }
     raise "No rate was found. TODO: Implement logic to select the cheapest rate." unless rate
+
     shipment.selected_shipping_rate_id = rate.id
     shipment.save
   end
 
   def add_payment
-    payment = self.new_order.payments.build( :amount => self.new_order.item_total )
+    puts " -> adding payment..."
+    
+    payment = self.new_order.payments.build(amount: self.new_order.outstanding_balance)
     payment.source = self.source
     payment.payment_method = self.payment_method
     payment.save!
 
-    self.new_order.next # -> payment
+    progress # -> payment
   end
 
   def confirm_reorder
-    self.new_order.next # -> confirm
+    progress # -> confirm
   end
 
   def complete_reorder
     self.new_order.update!
-    self.new_order.next && self.new_order.save # -> complete
+    progress && self.new_order.save # -> complete
   end
 
   def calculate_reorder_date!
     self.reorder_on ||= Date.today
     self.reorder_on += self.time
+
     save
   end
 
@@ -136,9 +152,23 @@ class Spree::Subscription < ActiveRecord::Base
       :user_id => order.user_id
     )
   end
+  
+  def new_order_state
+    self.new_order.state
+  end
+  def progress
+    current_state = new_order_state
+    result = self.new_order.next
+    
+    success = !!result && current_state != new_order_state
+    
+    puts " !! Order progression failed. Status still '#{new_order_state}'" unless success
+    
+    success
+  end
 
   def self.reorder_states
     @reorder_states ||= state_machine.states.map(&:name) - ["cart"]
   end
-
+  
 end
