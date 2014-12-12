@@ -1,6 +1,4 @@
 Spree::Order.class_eval do
-  attr_accessible :subscription_id
-
   belongs_to :subscription, :class_name => "Spree::Subscription"
 
   state_machine :initial => :cart do

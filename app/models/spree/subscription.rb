@@ -1,9 +1,6 @@
 require 'concerns/intervalable'
 
 class Spree::Subscription < ActiveRecord::Base
-  attr_accessible :reorder_on, :user_id, :times, :time_unit, :line_item_id, :billing_address_id, :state,
-    :shipping_address_id, :shipping_method_id, :payment_method_id, :source_id, :source_type
-
   include Intervalable
 
   attr_accessor :new_order
@@ -19,7 +16,7 @@ class Spree::Subscription < ActiveRecord::Base
 
   has_many :reorders, :class_name => "Spree::Order"
 
-  scope :active, where(:state => 'active')
+  scope :active, -> { where(state: 'active') }
 
   state_machine :state, :initial => 'cart' do
     event :suspend do
