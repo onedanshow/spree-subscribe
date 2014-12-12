@@ -16,7 +16,12 @@ class Spree::Subscription < ActiveRecord::Base
 
   has_many :reorders, :class_name => "Spree::Order"
 
+  scope :cart, -> { where(state: 'cart') }
   scope :active, -> { where(state: 'active') }
+  scope :inactive, -> { where(state: 'inactive') }
+  scope :cancelled, -> { where(state: 'cancelled') }
+  
+  scope :current, -> { where(state: ['active', 'inactive']) }
 
   state_machine :state, :initial => 'cart' do
     event :suspend do

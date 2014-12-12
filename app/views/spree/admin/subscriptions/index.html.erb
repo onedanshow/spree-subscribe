@@ -35,14 +35,14 @@
         </tr>
       </thead>
     <tbody>
-    <% @subscriptions.each do |sub| %>
+    <% @subscriptions.current.each do |sub| %>
       <tr data-hook="admin_subscriptions_index_rows" class="state-<%= sub.state.downcase %> <%= cycle('odd', 'even') %>">
         <td class="subscription-product">
           <span class="product-name"><%= sub.line_item.variant.name %></span><br/>
           <%= sub.line_item.variant.options_text %>
         </td>
         <td class="subscription-user"><%= sub.user.id %></td>
-        <td class="subscription-price"><%= money sub.line_item.price %></td>
+        <td class="subscription-price"><%= Spree::Money.new(sub.line_item.price).to_html %></td>
         <td class="subscription-interval"><%= sub.time_title %></td>
         <td class="subscription-reorder-date">
           <% if sub.active? %>
